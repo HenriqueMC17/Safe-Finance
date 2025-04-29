@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 192 7% 16%; /* Baseado no petroleum-900 */
+
+    --muted: 160 55% 95%; /* Baseado no teal-50 */
+    --muted-foreground: 160 30% 40%; /* Baseado no teal-600 */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 192 7% 16%; /* Baseado no petroleum-900 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 192 7% 16%; /* Baseado no petroleum-900 */
+
+    --border: 160 30% 90%; /* Baseado no teal-100 */
+    --input: 160 30% 90%; /* Baseado no teal-100 */
+
+    --primary: 160 50% 55%; /* Verde Água #50c8a8 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 192 7% 16%; /* Azul-Petróleo Escuro #213133 */
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 160 30% 90%; /* Baseado no teal-100 */
+    --accent-foreground: 160 60% 30%; /* Baseado no teal-700 */
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 160 50% 55%; /* Verde Água #50c8a8 */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 192 7% 16%; /* Azul-Petróleo Escuro #213133 */
+    --foreground: 0 0% 95%;
+
+    --muted: 192 10% 25%; /* Baseado no petroleum-800 */
+    --muted-foreground: 0 0% 80%;
+
+    --popover: 192 7% 16%; /* Azul-Petróleo Escuro #213133 */
+    --popover-foreground: 0 0% 95%;
+
+    --card: 192 7% 16%; /* Azul-Petróleo Escuro #213133 */
+    --card-foreground: 0 0% 95%;
+
+    --border: 192 10% 25%; /* Baseado no petroleum-800 */
+    --input: 192 10% 25%; /* Baseado no petroleum-800 */
+
+    --primary: 160 50% 55%; /* Verde Água #50c8a8 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 192 10% 25%; /* Baseado no petroleum-800 */
+    --secondary-foreground: 0 0% 95%;
+
+    --accent: 192 10% 25%; /* Baseado no petroleum-800 */
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 95%;
+
+    --ring: 160 50% 55%; /* Verde Água #50c8a8 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
