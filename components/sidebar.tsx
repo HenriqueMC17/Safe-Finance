@@ -1,24 +1,9 @@
 "use client"
 
 import type React from "react"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {
-  BarChart3,
-  Building2,
-  CreditCard,
-  FileText,
-  HelpCircle,
-  Home,
-  MessageSquare,
-  Settings,
-  Users,
-  Video,
-  Wallet,
-  FolderKanban,
-  ShieldCheck,
-} from "lucide-react"
+import { BarChart3, CreditCard, FileText, Home, Settings, Users, Wallet, Bot, LayoutDashboard } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -42,28 +27,32 @@ export function Sidebar({ className }: SidebarProps) {
             </Button>
             <Button
               asChild
+              variant={pathname === "/dashboard" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+            >
+              <Link href="/dashboard">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                Dashboard
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant={pathname === "/assistant" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+            >
+              <Link href="/assistant">
+                <Bot className="mr-2 h-4 w-4" />
+                Assistente IA
+              </Link>
+            </Button>
+            <Button
+              asChild
               variant={pathname === "/analytics" ? "secondary" : "ghost"}
               className="w-full justify-start"
             >
               <Link href="/analytics">
                 <BarChart3 className="mr-2 h-4 w-4" />
                 Análises
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant={pathname === "/organization" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-            >
-              <Link href="/organization">
-                <Building2 className="mr-2 h-4 w-4" />
-                Organização
-              </Link>
-            </Button>
-            <Button asChild variant={pathname === "/projects" ? "secondary" : "ghost"} className="w-full justify-start">
-              <Link href="/projects">
-                <FolderKanban className="mr-2 h-4 w-4" />
-                Projetos
               </Link>
             </Button>
             <Button
@@ -99,43 +88,10 @@ export function Sidebar({ className }: SidebarProps) {
                 Membros
               </Link>
             </Button>
-            <Button
-              asChild
-              variant={pathname === "/permissions" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-            >
-              <Link href="/permissions">
-                <ShieldCheck className="mr-2 h-4 w-4" />
-                Permissões
-              </Link>
-            </Button>
             <Button asChild variant={pathname === "/settings" ? "secondary" : "ghost"} className="w-full justify-start">
               <Link href="/settings">
                 <Settings className="mr-2 h-4 w-4" />
                 Configurações
-              </Link>
-            </Button>
-          </div>
-        </div>
-        <div className="px-3 py-2">
-          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Comunicação</h2>
-          <div className="space-y-1">
-            <Button asChild variant={pathname === "/chat" ? "secondary" : "ghost"} className="w-full justify-start">
-              <Link href="/chat">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Chat
-              </Link>
-            </Button>
-            <Button asChild variant={pathname === "/meetings" ? "secondary" : "ghost"} className="w-full justify-start">
-              <Link href="/meetings">
-                <Video className="mr-2 h-4 w-4" />
-                Reuniões
-              </Link>
-            </Button>
-            <Button asChild variant={pathname === "/help" ? "secondary" : "ghost"} className="w-full justify-start">
-              <Link href="/help">
-                <HelpCircle className="mr-2 h-4 w-4" />
-                Ajuda
               </Link>
             </Button>
           </div>
