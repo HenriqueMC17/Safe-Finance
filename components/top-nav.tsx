@@ -1,189 +1,58 @@
 "use client"
 
-import type React from "react"
-
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { Bell, Search } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
 import { Input } from "@/components/ui/input"
-import { Notifications } from "@/components/notifications"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { useEffect, useState } from "react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-interface TopNavProps extends React.HTMLAttributes<HTMLElement> {}
-
-export function TopNav({ className }: TopNavProps) {
-  const pathname = usePathname()
-  const [open, setOpen] = useState(false)
-  const [showNotifications, setShowNotifications] = useState(false)
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
-    }
-
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
-
-  const routes = [
-    {
-      href: "/",
-      label: "Início",
-    },
-    {
-      href: "/analytics",
-      label: "Análises",
-    },
-    {
-      href: "/organization",
-      label: "Organização",
-    },
-    {
-      href: "/projects",
-      label: "Projetos",
-    },
-    {
-      href: "/transactions",
-      label: "Transações",
-    },
-    {
-      href: "/invoices",
-      label: "Faturas",
-    },
-    {
-      href: "/payments",
-      label: "Pagamentos",
-    },
-    {
-      href: "/members",
-      label: "Membros",
-    },
-    {
-      href: "/permissions",
-      label: "Permissões",
-    },
-    {
-      href: "/settings",
-      label: "Configurações",
-    },
-    {
-      href: "/chat",
-      label: "Chat",
-    },
-    {
-      href: "/meetings",
-      label: "Reuniões",
-    },
-    {
-      href: "/help",
-      label: "Ajuda",
-    },
-  ]
-
+export function TopNav() {
   return (
-    <>
-      <div className={cn("flex h-16 items-center justify-between border-b px-4", className)}>
-        <div className="flex items-center gap-6">
-          <Link href="/" className="font-semibold">
-            Painel Financeiro
-          </Link>
-          <nav className="hidden items-center space-x-4 lg:flex">
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Início
-              </Link>
-            </Button>
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/analytics"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/analytics" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Análises
-              </Link>
-            </Button>
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/settings"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/settings" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Configurações
-              </Link>
-            </Button>
-          </nav>
-        </div>
-        <div className="flex items-center gap-2">
-          <form className="hidden lg:block">
+    <header className="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className="flex-1 flex items-center space-x-2">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input type="search" placeholder="Pesquisar..." className="w-64 rounded-lg bg-background pl-8" />
+              <Input type="search" placeholder="Pesquisar..." className="w-full md:w-[200px] pl-8 bg-background" />
             </div>
-          </form>
-          <Button variant="outline" size="sm" className="h-8 lg:hidden" onClick={() => setOpen(true)}>
-            <Search className="h-4 w-4" />
-            <span className="sr-only">Pesquisar</span>
+          </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/notifications">
+              <Bell className="h-5 w-5" />
+              <span className="sr-only">Notificações</span>
+            </Link>
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-8 gap-1"
-            onClick={() => setShowNotifications(!showNotifications)}
-          >
-            <Bell className="h-4 w-4" />
-            <span className="hidden lg:inline">Notificações</span>
-          </Button>
-          <ThemeToggle />
-          <Button variant="outline" size="sm" className="h-8 gap-1">
-            <span className="hidden lg:inline">Minha Conta</span>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="rounded-full" aria-label="Perfil">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Avatar" />
+                  <AvatarFallback>FS</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Perfil</DropdownMenuItem>
+              <DropdownMenuItem>Configurações</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sair</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Pesquisar em tudo..." />
-        <CommandList>
-          <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
-          <CommandGroup heading="Links">
-            {routes.map((route) => (
-              <CommandItem
-                key={route.href}
-                onSelect={() => {
-                  setOpen(false)
-                  window.location.href = route.href
-                }}
-              >
-                {route.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-      <Notifications open={showNotifications} onOpenChange={setShowNotifications} />
-    </>
+    </header>
   )
 }

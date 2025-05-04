@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
-import { accounts } from "@/lib/schema"
+import { accounts, users } from "@/lib/schema"
 import { eq } from "drizzle-orm"
 
 export async function GET(request: Request) {
@@ -8,13 +8,25 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get("userId")
 
-    let query = db.select().from(accounts)
-
-    if (userId) {
-      query = query.where(eq(accounts.user_id, Number.parseInt(userId)))
+    if (!userId) {
+      return NextResponse.json({ error: "userId é obrigatório" }, { status: 400 })
     }
 
-    const result = await query
+    // Verificar se o usuário existe
+    const userExists = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, Number.parseInt(userId)))
+      .limit(1)
+
+    if (userExists.length === 0) {
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 })
+    }
+
+    const result = await db
+      .select()
+      .from(accounts)
+      .where(eq(accounts.user_id, Number.parseInt(userId)))
 
     return NextResponse.json({ accounts: result })
   } catch (error) {
@@ -30,6 +42,13 @@ export async function POST(request: Request) {
 
     if (!user_id || !name || !type) {
       return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 })
+    }
+
+    // Verificar se o usuário existe
+    const userExists = await db.select().from(users).where(eq(users.id, user_id)).limit(1)
+
+    if (userExists.length === 0) {
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 })
     }
 
     const result = await db

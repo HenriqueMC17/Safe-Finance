@@ -8,9 +8,9 @@ export const sql = neon(process.env.DATABASE_URL!)
 export const db = drizzle(sql)
 
 // Função auxiliar para executar consultas SQL diretamente
-export async function executeQuery(query: string, params: any[] = []) {
+export async function executeQuery<T = any>(query: string, params: any[] = []): Promise<T[]> {
   try {
-    return await sql(query, params)
+    return (await sql(query, params)) as T[]
   } catch (error) {
     console.error("Erro ao executar consulta SQL:", error)
     throw error

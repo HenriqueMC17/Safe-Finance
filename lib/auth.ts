@@ -2,6 +2,10 @@ import { cookies } from "next/headers"
 import { db } from "@/lib/db"
 import { users } from "@/lib/schema"
 import { eq } from "drizzle-orm"
+import { SignJWT, jwtVerify } from "jose"
+
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "your-secret-key")
+const JWT_EXPIRY = "24h"
 
 export async function authenticateUser(email: string, password: string) {
   try {
@@ -22,16 +26,19 @@ export async function authenticateUser(email: string, password: string) {
       return { success: false, message: "Senha incorreta" }
     }
 
-    // Criar uma sessão simples
-    const session = {
+    // Criar token JWT
+    const token = await new SignJWT({
       userId: user.id,
       name: user.name,
       email: user.email,
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 horas
-    }
+    })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime(JWT_EXPIRY)
+      .sign(JWT_SECRET)
 
-    // Em um ambiente real, usaríamos um token JWT ou similar
-    cookies().set("session", JSON.stringify(session), {
+    // Armazenar token em cookie
+    cookies().set("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24, // 24 horas
@@ -47,23 +54,19 @@ export async function authenticateUser(email: string, password: string) {
 
 export async function getCurrentUser() {
   try {
-    const sessionCookie = cookies().get("session")
+    const token = cookies().get("auth_token")?.value
 
-    if (!sessionCookie) {
+    if (!token) {
       return null
     }
 
-    const session = JSON.parse(sessionCookie.value)
-
-    if (session.expiresAt < Date.now()) {
-      cookies().delete("session")
-      return null
-    }
+    // Verificar e decodificar o token
+    const { payload } = await jwtVerify(token, JWT_SECRET)
 
     return {
-      id: session.userId,
-      name: session.name,
-      email: session.email,
+      id: payload.userId as number,
+      name: payload.name as string,
+      email: payload.email as string,
     }
   } catch (error) {
     console.error("Erro ao obter usuário atual:", error)
@@ -72,5 +75,41 @@ export async function getCurrentUser() {
 }
 
 export async function logoutUser() {
-  cookies().delete("session")
+  cookies().delete("auth_token")
+}
+
+export async function refreshToken(userId: number) {
+  try {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, userId),
+    })
+
+    if (!user) {
+      return false
+    }
+
+    // Criar novo token JWT
+    const token = await new SignJWT({
+      userId: user.id,
+      name: user.name,
+      email: user.email,
+    })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime(JWT_EXPIRY)
+      .sign(JWT_SECRET)
+
+    // Atualizar token em cookie
+    cookies().set("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24, // 24 horas
+      path: "/",
+    })
+
+    return true
+  } catch (error) {
+    console.error("Erro ao atualizar token:", error)
+    return false
+  }
 }

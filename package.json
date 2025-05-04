@@ -33,7 +33,7 @@
     "@radix-ui/react-slot": "1.1.1",
     "@radix-ui/react-switch": "1.1.2",
     "@radix-ui/react-tabs": "1.1.2",
-    "@radix-ui/react-toast": "1.2.4",
+    "@radix-ui/react-toast": "latest",
     "@radix-ui/react-toggle": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
@@ -85,10 +85,11 @@
     "@neondatabase/serverless": "latest",
     "@cloudflare/workers-types": "latest",
     "@op-engineering/op-sqlite": "latest",
-    "@radix-ui/react-icons": "latest",
     "drizzle-orm": "latest",
     "ai": "latest",
-    "@ai-sdk/groq": "latest"
+    "@ai-sdk/groq": "latest",
+    "nodemailer": "latest",
+    "jose": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
