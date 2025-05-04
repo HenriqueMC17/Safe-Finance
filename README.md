@@ -6,7 +6,8 @@
 
 Você pode acessar o Safe Finance diretamente através do site oficial:
 
-👉 [Acessar Safe Finance](https://kzmgdbc49k71a8nuktoy.lite.vusercontent.net/)  
+👉 [Acessar Safe Finance](https://www.safefinance.com)  
+*(Substitua pelo seu domínio real, caso necessário)*
 
 ---
 
@@ -22,10 +23,11 @@ Você pode acessar o Safe Finance diretamente através do site oficial:
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Front-end:** TypeScript, CSS3, JavaScript, React.js
-- **Banco de Dados:** MongoDB 
+- **Front-end:** HTML5, CSS3, JavaScript, React.js  
+- **Back-end:** Node.js, Express  
+- **Banco de Dados:** MongoDB / Firebase  
 - **Autenticação:** JWT  
-- **Hospedagem:** Vercel
+- **Hospedagem:** Vercel / Heroku / Netlify  
 
 ---
 
@@ -50,7 +52,9 @@ Você pode:
 
 Em caso de dúvidas ou parcerias, entre em contato:  
 📧 **contato@safefinance.com**  
+*(Substitua pelo seu e-mail real)*
 
 ---
 
 Feito com 💙 por Safe Finance
+```
