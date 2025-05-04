@@ -6,8 +6,7 @@
 
 Você pode acessar o Safe Finance diretamente através do site oficial:
 
-👉 [Acessar Safe Finance](https://www.safefinance.com)  
-*(Substitua pelo seu domínio real, caso necessário)*
+👉 [Acessar Safe Finance](https://kzmp13ktxdrxjyt6y15i.lite.vusercontent.net/)
 
 ---
 
@@ -51,8 +50,7 @@ Você pode:
 ## 📫 Contato
 
 Em caso de dúvidas ou parcerias, entre em contato:  
-📧 **contato@safefinance.com**  
-*(Substitua pelo seu e-mail real)*
+📧 **contato@safefinance.com**
 
 ---
 
