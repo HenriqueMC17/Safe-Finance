@@ -37,12 +37,13 @@ import {
 
 interface SidebarProps {
   isFloating?: boolean
+  defaultCollapsed?: boolean
 }
 
-export function Sidebar({ isFloating = false }: SidebarProps) {
+export function Sidebar({ isFloating = false, defaultCollapsed = false }: SidebarProps) {
   const pathname = usePathname()
   const { settings } = useSettings()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed)
   const [isOpen, setIsOpen] = useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
@@ -59,6 +60,10 @@ export function Sidebar({ isFloating = false }: SidebarProps) {
       setIsOpen(!isOpen)
     } else {
       setIsCollapsed(!isCollapsed)
+      // Save sidebar state in cookie
+      if (typeof document !== "undefined") {
+        document.cookie = `sidebar-state=${!isCollapsed ? "collapsed" : "expanded"}; path=/; max-age=31536000`
+      }
     }
   }
 

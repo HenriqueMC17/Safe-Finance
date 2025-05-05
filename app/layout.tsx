@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { SettingsProvider } from "@/contexts/settings-context"
 import { LocaleProvider } from "@/contexts/locale-context"
 import { Toaster } from "@/components/ui/toaster"
+import { getCookiesSafe } from "@/lib/headers-utils"
 import type React from "react"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -22,6 +23,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Tentativa segura de obter cookies
+  const cookies = getCookiesSafe()
+  const sidebarState = cookies?.get("sidebar-state")?.value
+  const defaultCollapsed = sidebarState === "collapsed"
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={inter.className}>
@@ -32,7 +38,7 @@ export default function RootLayout({
                 <div className="min-h-screen flex">
                   {/* Sidebar - hidden on mobile, visible on desktop */}
                   <div className="hidden md:block">
-                    <Sidebar />
+                    <Sidebar defaultCollapsed={defaultCollapsed} />
                   </div>
 
                   {/* Floating sidebar - visible on mobile */}
