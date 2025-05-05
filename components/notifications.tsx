@@ -70,13 +70,14 @@ export function Notifications() {
   return (
     <div className="relative">
       <Button
-        variant="ghost"
-        size="icon"
-        className="relative"
+        variant="outline"
+        size="sm"
+        className="relative h-8 gap-1"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Notificações"
       >
-        <Bell className="h-5 w-5" />
+        <Bell className="h-4 w-4" />
+        <span className="hidden lg:inline">Notificações</span>
         {unreadCount > 0 && <span className="absolute top-0 right-0 h-2 w-2 bg-primary rounded-full" />}
       </Button>
       {isOpen && (

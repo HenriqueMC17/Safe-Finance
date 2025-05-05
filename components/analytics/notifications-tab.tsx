@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Bell, AlertTriangle, TrendingUp, TrendingDown, DollarSign, Users } from "lucide-react"
+import { Notifications } from "@/components/notifications"
 
 const notificationTypes = [
   { id: "account", label: "Account Activity", icon: Bell },
@@ -86,6 +87,15 @@ export function NotificationsTab() {
         <Button variant="outline" className="text-sm">
           View All Notifications
         </Button>
+      </div>
+      <div className="mt-6">
+        <h2 className="text-lg font-semibold mb-4">Centro de Notificações</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Acesse todas as suas notificações em um só lugar. Clique no botão abaixo para abrir o painel de notificações.
+        </p>
+        <div className="flex justify-start">
+          <Notifications />
+        </div>
       </div>
     </div>
   )

@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { createContext, useContext, useEffect, useState } from "react"
 
 export interface UserSettings {
@@ -41,9 +39,9 @@ const defaultSettings: UserSettings = {
   email: "dollar.singh@example.com",
   phone: "+1 (555) 123-4567",
   timezone: "utc-8",
-  language: "pt-BR",
-  currency: "BRL",
-  dateFormat: "dd/MM/yyyy",
+  language: "en",
+  currency: "usd",
+  dateFormat: "mm-dd-yyyy",
   fontSize: 16,
   theme: "system",
   layout: "default",
@@ -81,12 +79,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== "undefined") {
       const savedSettings = localStorage.getItem("userSettings")
       if (savedSettings) {
-        try {
-          return JSON.parse(savedSettings)
-        } catch (e) {
-          console.error("Failed to parse saved settings:", e)
-          return defaultSettings
-        }
+        return JSON.parse(savedSettings)
       }
     }
     return defaultSettings
@@ -94,13 +87,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   // Save settings to localStorage whenever they change
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        localStorage.setItem("userSettings", JSON.stringify(settings))
-      } catch (e) {
-        console.error("Failed to save settings to localStorage:", e)
-      }
-    }
+    localStorage.setItem("userSettings", JSON.stringify(settings))
   }, [settings])
 
   const updateSettings = (newSettings: Partial<UserSettings>) => {

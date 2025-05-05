@@ -6,7 +6,7 @@
 
 Você pode acessar o Safe Finance diretamente através do site oficial:
 
-👉 [Acessar Safe Finance](https://kzmp13ktxdrxjyt6y15i.lite.vusercontent.net/)
+👉 [Acessar Safe Finance](https://kzmoqixawk386qtnsifr.lite.vusercontent.net/)
 
 ---
 
