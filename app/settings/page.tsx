@@ -41,43 +41,43 @@ export default function SettingsPage() {
       phone: settings.phone,
       timezone: settings.timezone,
     })
-    toast.success("Account settings saved successfully")
+    toast.success("Configurações da conta salvas com sucesso")
   }
 
   const handleSaveNotifications = () => {
     updateNotificationSettings(settings.notifications)
-    toast.success("Notification settings saved successfully")
+    toast.success("Configurações de notificações salvas com sucesso")
   }
 
   const handleSavePrivacy = () => {
     updatePrivacySettings(settings.privacy)
-    toast.success("Privacy settings saved successfully")
+    toast.success("Configurações de privacidade salvas com sucesso")
   }
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">Settings</h1>
+      <h1 className="text-3xl font-bold mb-6">Configurações</h1>
       <Tabs defaultValue="account" className="space-y-4">
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="preferences">Preferences</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          <TabsTrigger value="privacy">Privacy</TabsTrigger>
+          <TabsTrigger value="account">Conta</TabsTrigger>
+          <TabsTrigger value="security">Segurança</TabsTrigger>
+          <TabsTrigger value="preferences">Preferências</TabsTrigger>
+          <TabsTrigger value="notifications">Notificações</TabsTrigger>
+          <TabsTrigger value="privacy">Privacidade</TabsTrigger>
         </TabsList>
 
         <TabsContent value="account">
           <Card>
             <CardHeader>
-              <CardTitle>Account Settings</CardTitle>
-              <CardDescription>Manage your account information</CardDescription>
+              <CardTitle>Configurações da Conta</CardTitle>
+              <CardDescription>Gerencie as informações da sua conta</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <Label>Current Avatar</Label>
+                <Label>Avatar Atual</Label>
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-20 w-20">
-                    <AvatarImage src={selectedAvatar} alt={settings.fullName} />
+                    <AvatarImage src={selectedAvatar || "/placeholder.svg"} alt={settings.fullName} />
                     <AvatarFallback>
                       {settings.fullName
                         .split(" ")
@@ -86,7 +86,7 @@ export default function SettingsPage() {
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <Label>Choose a new avatar</Label>
+                <Label>Escolha um novo avatar</Label>
                 <div className="flex gap-4 overflow-x-auto pb-2">
                   {defaultAvatars.map((avatar, index) => (
                     <Avatar
@@ -96,18 +96,22 @@ export default function SettingsPage() {
                       }`}
                       onClick={() => setSelectedAvatar(avatar)}
                     >
-                      <AvatarImage src={avatar} alt={`Avatar ${index + 1}`} className="object-cover" />
+                      <AvatarImage
+                        src={avatar || "/placeholder.svg"}
+                        alt={`Avatar ${index + 1}`}
+                        className="object-cover"
+                      />
                       <AvatarFallback>{index + 1}</AvatarFallback>
                     </Avatar>
                   ))}
                 </div>
                 <div>
-                  <Label htmlFor="custom-avatar">Or upload a custom avatar</Label>
+                  <Label htmlFor="custom-avatar">Ou envie um avatar personalizado</Label>
                   <Input id="custom-avatar" type="file" accept="image/*" className="mt-1" />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="full-name">Full Name</Label>
+                <Label htmlFor="full-name">Nome Completo</Label>
                 <Input
                   id="full-name"
                   value={settings.fullName}
@@ -115,7 +119,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">E-mail</Label>
                 <Input
                   id="email"
                   type="email"
@@ -124,7 +128,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">Número de Telefone</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -133,44 +137,25 @@ export default function SettingsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="timezone">Timezone</Label>
+                <Label htmlFor="timezone">Fuso Horário</Label>
                 <Select value={settings.timezone} onValueChange={(value) => updateSettings({ timezone: value })}>
                   <SelectTrigger id="timezone">
-                    <SelectValue placeholder="Select Timezone" />
+                    <SelectValue placeholder="Selecione o Fuso Horário" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="utc-12">International Date Line West (UTC-12)</SelectItem>
-                    <SelectItem value="utc-11">Samoa Standard Time (UTC-11)</SelectItem>
-                    <SelectItem value="utc-10">Hawaii-Aleutian Standard Time (UTC-10)</SelectItem>
-                    <SelectItem value="utc-9">Alaska Standard Time (UTC-9)</SelectItem>
-                    <SelectItem value="utc-8">Pacific Time (UTC-8)</SelectItem>
-                    <SelectItem value="utc-7">Mountain Time (UTC-7)</SelectItem>
-                    <SelectItem value="utc-6">Central Time (UTC-6)</SelectItem>
-                    <SelectItem value="utc-5">Eastern Time (UTC-5)</SelectItem>
-                    <SelectItem value="utc-4">Atlantic Time (UTC-4)</SelectItem>
-                    <SelectItem value="utc-3">Argentina Standard Time (UTC-3)</SelectItem>
-                    <SelectItem value="utc-2">South Georgia Time (UTC-2)</SelectItem>
-                    <SelectItem value="utc-1">Azores Time (UTC-1)</SelectItem>
-                    <SelectItem value="utc+0">Greenwich Mean Time (UTC+0)</SelectItem>
-                    <SelectItem value="utc+1">Central European Time (UTC+1)</SelectItem>
-                    <SelectItem value="utc+2">Eastern European Time (UTC+2)</SelectItem>
-                    <SelectItem value="utc+3">Moscow Time (UTC+3)</SelectItem>
-                    <SelectItem value="utc+4">Gulf Standard Time (UTC+4)</SelectItem>
-                    <SelectItem value="utc+5">Pakistan Standard Time (UTC+5)</SelectItem>
-                    <SelectItem value="utc+5.5">Indian Standard Time (UTC+5:30)</SelectItem>
-                    <SelectItem value="utc+6">Bangladesh Standard Time (UTC+6)</SelectItem>
-                    <SelectItem value="utc+7">Indochina Time (UTC+7)</SelectItem>
-                    <SelectItem value="utc+8">China Standard Time (UTC+8)</SelectItem>
-                    <SelectItem value="utc+9">Japan Standard Time (UTC+9)</SelectItem>
-                    <SelectItem value="utc+10">Australian Eastern Standard Time (UTC+10)</SelectItem>
-                    <SelectItem value="utc+11">Solomon Islands Time (UTC+11)</SelectItem>
-                    <SelectItem value="utc+12">New Zealand Standard Time (UTC+12)</SelectItem>
+                    <SelectItem value="utc-3">Horário de Brasília (UTC-3)</SelectItem>
+                    <SelectItem value="utc-2">Fernando de Noronha (UTC-2)</SelectItem>
+                    <SelectItem value="utc-4">Manaus (UTC-4)</SelectItem>
+                    <SelectItem value="utc-5">Acre (UTC-5)</SelectItem>
+                    <SelectItem value="utc+0">Horário de Greenwich (UTC+0)</SelectItem>
+                    <SelectItem value="utc-12">Linha Internacional de Data Oeste (UTC-12)</SelectItem>
+                    <SelectItem value="utc+12">Nova Zelândia (UTC+12)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleSaveAccount}>Save Account Settings</Button>
+              <Button onClick={handleSaveAccount}>Salvar Configurações da Conta</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -179,42 +164,42 @@ export default function SettingsPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle>Security Settings</CardTitle>
-                <CardDescription>Manage your account's security settings</CardDescription>
+                <CardTitle>Configurações de Segurança</CardTitle>
+                <CardDescription>Gerencie as configurações de segurança da sua conta</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="current-password">Current Password</Label>
+                  <Label htmlFor="current-password">Senha Atual</Label>
                   <Input id="current-password" type="password" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="new-password">New Password</Label>
+                  <Label htmlFor="new-password">Nova Senha</Label>
                   <Input id="new-password" type="password" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm New Password</Label>
+                  <Label htmlFor="confirm-password">Confirmar Nova Senha</Label>
                   <Input id="confirm-password" type="password" />
                 </div>
                 <div className="flex items-center space-x-2">
                   <Switch id="two-factor" />
-                  <Label htmlFor="two-factor">Enable Two-Factor Authentication</Label>
+                  <Label htmlFor="two-factor">Ativar Autenticação de Dois Fatores</Label>
                 </div>
               </CardContent>
               <CardFooter>
-                <Button>Save Security Settings</Button>
+                <Button>Salvar Configurações de Segurança</Button>
               </CardFooter>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Login History</CardTitle>
-                <CardDescription>Recent login activities on your account</CardDescription>
+                <CardTitle>Histórico de Login</CardTitle>
+                <CardDescription>Atividades recentes de login na sua conta</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { date: "2023-07-20", time: "14:30 UTC", ip: "192.168.1.1", location: "New York, USA" },
-                  { date: "2023-07-19", time: "09:15 UTC", ip: "10.0.0.1", location: "London, UK" },
-                  { date: "2023-07-18", time: "22:45 UTC", ip: "172.16.0.1", location: "Tokyo, Japan" },
+                  { date: "20/07/2023", time: "14:30 UTC", ip: "192.168.1.1", location: "São Paulo, Brasil" },
+                  { date: "19/07/2023", time: "09:15 UTC", ip: "10.0.0.1", location: "Rio de Janeiro, Brasil" },
+                  { date: "18/07/2023", time: "22:45 UTC", ip: "172.16.0.1", location: "Belo Horizonte, Brasil" },
                 ].map((login, index) => (
                   <div key={index} className="flex justify-between items-center text-sm">
                     <span>
@@ -229,12 +214,12 @@ export default function SettingsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Active Sessions</CardTitle>
-                <CardDescription>Currently active sessions on your account</CardDescription>
+                <CardTitle>Sessões Ativas</CardTitle>
+                <CardDescription>Sessões atualmente ativas na sua conta</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { device: "Laptop", browser: "Chrome", os: "Windows 10", icon: Laptop },
+                  { device: "Notebook", browser: "Chrome", os: "Windows 10", icon: Laptop },
                   { device: "Smartphone", browser: "Safari", os: "iOS 15", icon: Smartphone },
                   { device: "Tablet", browser: "Firefox", os: "Android 12", icon: Tablet },
                 ].map((session, index) => (
@@ -249,7 +234,7 @@ export default function SettingsPage() {
                 ))}
               </CardContent>
               <CardFooter>
-                <Button variant="outline">Log Out All Other Sessions</Button>
+                <Button variant="outline">Encerrar Todas as Outras Sessões</Button>
               </CardFooter>
             </Card>
           </div>
@@ -258,95 +243,96 @@ export default function SettingsPage() {
         <TabsContent value="preferences">
           <Card>
             <CardHeader>
-              <CardTitle>Preferences</CardTitle>
-              <CardDescription>Customize your dashboard experience</CardDescription>
+              <CardTitle>Preferências</CardTitle>
+              <CardDescription>Personalize sua experiência no dashboard</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="language">Language</Label>
-                  <Select defaultValue="en">
+                  <Label htmlFor="language">Idioma</Label>
+                  <Select defaultValue="pt">
                     <SelectTrigger id="language">
-                      <SelectValue placeholder="Select Language" />
+                      <SelectValue placeholder="Selecione o Idioma" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="es">Español</SelectItem>
-                      <SelectItem value="fr">Français</SelectItem>
-                      <SelectItem value="de">Deutsch</SelectItem>
-                      <SelectItem value="zh">中文</SelectItem>
+                      <SelectItem value="pt">Português</SelectItem>
+                      <SelectItem value="en">Inglês</SelectItem>
+                      <SelectItem value="es">Espanhol</SelectItem>
+                      <SelectItem value="fr">Francês</SelectItem>
+                      <SelectItem value="de">Alemão</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="currency">Currency</Label>
-                  <Select defaultValue="usd">
+                  <Label htmlFor="currency">Moeda</Label>
+                  <Select defaultValue="brl">
                     <SelectTrigger id="currency">
-                      <SelectValue placeholder="Select Currency" />
+                      <SelectValue placeholder="Selecione a Moeda" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="usd">USD ($)</SelectItem>
-                      <SelectItem value="eur">EUR (€)</SelectItem>
-                      <SelectItem value="gbp">GBP (£)</SelectItem>
-                      <SelectItem value="jpy">JPY (¥)</SelectItem>
+                      <SelectItem value="brl">Real (R$)</SelectItem>
+                      <SelectItem value="usd">Dólar (US$)</SelectItem>
+                      <SelectItem value="eur">Euro (€)</SelectItem>
+                      <SelectItem value="gbp">Libra (£)</SelectItem>
+                      <SelectItem value="jpy">Iene (¥)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="date-format">Date Format</Label>
-                  <Select defaultValue="mm-dd-yyyy">
+                  <Label htmlFor="date-format">Formato de Data</Label>
+                  <Select defaultValue="dd-mm-yyyy">
                     <SelectTrigger id="date-format">
-                      <SelectValue placeholder="Select Date Format" />
+                      <SelectValue placeholder="Selecione o Formato de Data" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="mm-dd-yyyy">MM-DD-YYYY</SelectItem>
-                      <SelectItem value="dd-mm-yyyy">DD-MM-YYYY</SelectItem>
-                      <SelectItem value="yyyy-mm-dd">YYYY-MM-DD</SelectItem>
+                      <SelectItem value="dd-mm-yyyy">DD/MM/AAAA</SelectItem>
+                      <SelectItem value="mm-dd-yyyy">MM/DD/AAAA</SelectItem>
+                      <SelectItem value="yyyy-mm-dd">AAAA/MM/DD</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="font-size">Font Size</Label>
+                  <Label htmlFor="font-size">Tamanho da Fonte</Label>
                   <Slider defaultValue={[16]} max={24} min={12} step={1} />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Theme</Label>
+                <Label>Tema</Label>
                 <RadioGroup defaultValue="system">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="light" id="theme-light" />
-                    <Label htmlFor="theme-light">Light</Label>
+                    <Label htmlFor="theme-light">Claro</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="dark" id="theme-dark" />
-                    <Label htmlFor="theme-dark">Dark</Label>
+                    <Label htmlFor="theme-dark">Escuro</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="system" id="theme-system" />
-                    <Label htmlFor="theme-system">System</Label>
+                    <Label htmlFor="theme-system">Sistema</Label>
                   </div>
                 </RadioGroup>
               </div>
               <div className="space-y-2">
-                <Label>Dashboard Layout</Label>
+                <Label>Layout do Dashboard</Label>
                 <RadioGroup defaultValue="default">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="default" id="layout-default" />
-                    <Label htmlFor="layout-default">Default</Label>
+                    <Label htmlFor="layout-default">Padrão</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="compact" id="layout-compact" />
-                    <Label htmlFor="layout-compact">Compact</Label>
+                    <Label htmlFor="layout-compact">Compacto</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="expanded" id="layout-expanded" />
-                    <Label htmlFor="layout-expanded">Expanded</Label>
+                    <Label htmlFor="layout-expanded">Expandido</Label>
                   </div>
                 </RadioGroup>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save Preferences</Button>
+              <Button>Salvar Preferências</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -354,13 +340,13 @@ export default function SettingsPage() {
         <TabsContent value="notifications">
           <Card>
             <CardHeader>
-              <CardTitle>Notification Settings</CardTitle>
-              <CardDescription>Manage how you receive notifications</CardDescription>
+              <CardTitle>Configurações de Notificações</CardTitle>
+              <CardDescription>Gerencie como você recebe notificações</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label>Notification Channels</Label>
+                  <Label>Canais de Notificação</Label>
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="email-notifications"
@@ -369,7 +355,7 @@ export default function SettingsPage() {
                         updateNotificationSettings({ ...settings.notifications, email: e.target.checked })
                       }
                     />
-                    <Label htmlFor="email-notifications">Email Notifications</Label>
+                    <Label htmlFor="email-notifications">Notificações por E-mail</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -379,7 +365,7 @@ export default function SettingsPage() {
                         updateNotificationSettings({ ...settings.notifications, push: e.target.checked })
                       }
                     />
-                    <Label htmlFor="push-notifications">Push Notifications</Label>
+                    <Label htmlFor="push-notifications">Notificações Push</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -387,11 +373,11 @@ export default function SettingsPage() {
                       defaultChecked={settings.notifications.sms}
                       onChange={(e) => updateNotificationSettings({ ...settings.notifications, sms: e.target.checked })}
                     />
-                    <Label htmlFor="sms-notifications">SMS Notifications</Label>
+                    <Label htmlFor="sms-notifications">Notificações por SMS</Label>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Notification Types</Label>
+                  <Label>Tipos de Notificação</Label>
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="account-activity"
@@ -400,7 +386,7 @@ export default function SettingsPage() {
                         updateNotificationSettings({ ...settings.notifications, accountActivity: e.target.checked })
                       }
                     />
-                    <Label htmlFor="account-activity">Account Activity</Label>
+                    <Label htmlFor="account-activity">Atividade da Conta</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -410,7 +396,7 @@ export default function SettingsPage() {
                         updateNotificationSettings({ ...settings.notifications, newFeatures: e.target.checked })
                       }
                     />
-                    <Label htmlFor="new-features">New Features and Updates</Label>
+                    <Label htmlFor="new-features">Novos Recursos e Atualizações</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -420,37 +406,37 @@ export default function SettingsPage() {
                         updateNotificationSettings({ ...settings.notifications, marketing: e.target.checked })
                       }
                     />
-                    <Label htmlFor="marketing">Marketing and Promotions</Label>
+                    <Label htmlFor="marketing">Marketing e Promoções</Label>
                   </div>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="notification-frequency">Notification Frequency</Label>
+                <Label htmlFor="notification-frequency">Frequência de Notificações</Label>
                 <Select
                   value={settings.notifications.frequency}
                   onValueChange={(value) => updateNotificationSettings({ ...settings.notifications, frequency: value })}
                 >
                   <SelectTrigger id="notification-frequency">
-                    <SelectValue placeholder="Select Frequency" />
+                    <SelectValue placeholder="Selecione a Frequência" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="real-time">Real-time</SelectItem>
-                    <SelectItem value="daily">Daily Digest</SelectItem>
-                    <SelectItem value="weekly">Weekly Summary</SelectItem>
+                    <SelectItem value="real-time">Tempo Real</SelectItem>
+                    <SelectItem value="daily">Resumo Diário</SelectItem>
+                    <SelectItem value="weekly">Resumo Semanal</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="quiet-hours-start">Quiet Hours</Label>
+                <Label htmlFor="quiet-hours-start">Horário de Silêncio</Label>
                 <div className="flex items-center space-x-2">
                   <Input id="quiet-hours-start" type="time" defaultValue="22:00" />
-                  <span>to</span>
+                  <span>até</span>
                   <Input id="quiet-hours-end" type="time" defaultValue="07:00" />
                 </div>
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleSaveNotifications}>Save Notification Settings</Button>
+              <Button onClick={handleSaveNotifications}>Salvar Configurações de Notificações</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -458,18 +444,18 @@ export default function SettingsPage() {
         <TabsContent value="privacy">
           <Card>
             <CardHeader>
-              <CardTitle>Privacy Settings</CardTitle>
-              <CardDescription>Manage your privacy and data settings</CardDescription>
+              <CardTitle>Configurações de Privacidade</CardTitle>
+              <CardDescription>Gerencie suas configurações de privacidade e dados</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Data Sharing</CardTitle>
+                    <CardTitle className="text-lg">Compartilhamento de Dados</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="analytics-sharing">Share analytics data</Label>
+                      <Label htmlFor="analytics-sharing">Compartilhar dados analíticos</Label>
                       <Switch
                         id="analytics-sharing"
                         checked={settings.privacy.analyticsSharing}
@@ -479,7 +465,7 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="personalized-ads">Allow personalized ads</Label>
+                      <Label htmlFor="personalized-ads">Permitir anúncios personalizados</Label>
                       <Switch
                         id="personalized-ads"
                         checked={settings.privacy.personalizedAds}
@@ -492,7 +478,7 @@ export default function SettingsPage() {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Account Visibility</CardTitle>
+                    <CardTitle className="text-lg">Visibilidade da Conta</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <RadioGroup
@@ -501,11 +487,11 @@ export default function SettingsPage() {
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="public" id="visibility-public" />
-                        <Label htmlFor="visibility-public">Public</Label>
+                        <Label htmlFor="visibility-public">Pública</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="private" id="visibility-private" />
-                        <Label htmlFor="visibility-private">Private</Label>
+                        <Label htmlFor="visibility-private">Privada</Label>
                       </div>
                     </RadioGroup>
                   </CardContent>
@@ -514,7 +500,7 @@ export default function SettingsPage() {
               <div className="grid gap-4 md:grid-cols-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Data Retention</CardTitle>
+                    <CardTitle className="text-lg">Retenção de Dados</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Select
@@ -522,34 +508,34 @@ export default function SettingsPage() {
                       onValueChange={(value) => updatePrivacySettings({ ...settings.privacy, dataRetention: value })}
                     >
                       <SelectTrigger id="data-retention">
-                        <SelectValue placeholder="Select Data Retention Period" />
+                        <SelectValue placeholder="Selecione o Período de Retenção de Dados" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="6-months">6 Months</SelectItem>
-                        <SelectItem value="1-year">1 Year</SelectItem>
-                        <SelectItem value="2-years">2 Years</SelectItem>
-                        <SelectItem value="indefinite">Indefinite</SelectItem>
+                        <SelectItem value="6-months">6 Meses</SelectItem>
+                        <SelectItem value="1-year">1 Ano</SelectItem>
+                        <SelectItem value="2-years">2 Anos</SelectItem>
+                        <SelectItem value="indefinite">Indefinido</SelectItem>
                       </SelectContent>
                     </Select>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Third-Party Integrations</CardTitle>
+                    <CardTitle className="text-lg">Integrações com Terceiros</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    <p className="text-sm text-muted-foreground">Connected: Google Analytics, Facebook Pixel</p>
-                    <Button variant="outline">Manage Integrations</Button>
+                    <p className="text-sm text-muted-foreground">Conectado: Google Analytics, Facebook Pixel</p>
+                    <Button variant="outline">Gerenciar Integrações</Button>
                   </CardContent>
                 </Card>
               </div>
               <div className="flex justify-between">
-                <Button variant="outline">Download Your Data</Button>
-                <Button variant="destructive">Delete My Account</Button>
+                <Button variant="outline">Baixar Seus Dados</Button>
+                <Button variant="destructive">Excluir Minha Conta</Button>
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleSavePrivacy}>Save Privacy Settings</Button>
+              <Button onClick={handleSavePrivacy}>Salvar Configurações de Privacidade</Button>
             </CardFooter>
           </Card>
         </TabsContent>

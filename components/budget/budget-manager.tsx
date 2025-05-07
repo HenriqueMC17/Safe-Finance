@@ -21,6 +21,8 @@ import { ptBR } from "date-fns/locale"
 import { CalendarIcon, Plus, Pencil, Trash2, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { toast } from "@/components/ui/use-toast"
+import { ExportDataButton } from "@/components/export-data-button"
+import { exportToPDF } from "@/lib/pdf-export"
 
 interface Budget {
   id: number
@@ -188,6 +190,32 @@ export function BudgetManager({ userId }: BudgetManagerProps) {
     return periods[period] || period
   }
 
+  // Função para exportar orçamentos para PDF
+  const handleExportPDF = async () => {
+    const formattedBudgets = budgets.map((budget) => ({
+      ...budget,
+      period: getPeriodLabel(budget.period),
+      amount: formatCurrency(Number(budget.amount)),
+    }))
+
+    const headers = {
+      category: "Categoria",
+      amount: "Valor",
+      period: "Período",
+      start_date: "Data de Início",
+      end_date: "Data de Término",
+    }
+
+    await exportToPDF(
+      formattedBudgets,
+      headers,
+      "Relatório de Orçamentos",
+      "orcamentos_safe_finance",
+      ["start_date", "end_date"],
+      "landscape",
+    )
+  }
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -195,10 +223,26 @@ export function BudgetManager({ userId }: BudgetManagerProps) {
           <CardTitle>Gerenciamento de Orçamentos</CardTitle>
           <CardDescription>Defina e gerencie seus orçamentos por categoria</CardDescription>
         </div>
-        <Button onClick={handleOpenDialog} size="sm">
-          <Plus className="mr-2 h-4 w-4" />
-          Novo Orçamento
-        </Button>
+        <div className="flex space-x-2">
+          <ExportDataButton
+            data={budgets}
+            headers={{
+              category: "Categoria",
+              amount: "Valor",
+              period: "Período",
+              start_date: "Data de Início",
+              end_date: "Data de Término",
+            }}
+            dateFields={["start_date", "end_date"]}
+            filename="orcamentos_safe_finance"
+            disabled={budgets.length === 0}
+            onExportPDF={handleExportPDF}
+          />
+          <Button onClick={handleOpenDialog} size="sm">
+            <Plus className="mr-2 h-4 w-4" />
+            Novo Orçamento
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         {isLoading ? (

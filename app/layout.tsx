@@ -11,8 +11,8 @@ import type React from "react"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Painel Financeiro Flowers&Saints",
-  description: "Um painel financeiro moderno e responsivo",
+  title: "Safe Finance",
+  description: "Sistema de gestão financeira seguro e eficiente",
     generator: 'v0.dev'
 }
 

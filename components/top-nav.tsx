@@ -1,183 +1,79 @@
 "use client"
 
-import type React from "react"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Search } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
 import { Input } from "@/components/ui/input"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { useEffect, useState } from "react"
-import { useMediaQuery } from "@/hooks/use-media-query"
 import { Notifications } from "@/components/notifications"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useSettings } from "@/contexts/settings-context"
 
-interface TopNavProps extends React.HTMLAttributes<HTMLElement> {}
-
-export function TopNav({ className }: TopNavProps) {
+export function TopNav() {
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 640px)")
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
-    }
-
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
-
-  const routes = [
-    {
-      href: "/",
-      label: "Início",
-    },
-    {
-      href: "/analytics",
-      label: "Análises",
-    },
-    {
-      href: "/organization",
-      label: "Organização",
-    },
-    {
-      href: "/projects",
-      label: "Projetos",
-    },
-    {
-      href: "/transactions",
-      label: "Transações",
-    },
-    {
-      href: "/invoices",
-      label: "Faturas",
-    },
-    {
-      href: "/payments",
-      label: "Pagamentos",
-    },
-    {
-      href: "/members",
-      label: "Membros",
-    },
-    {
-      href: "/permissions",
-      label: "Permissões",
-    },
-    {
-      href: "/settings",
-      label: "Configurações",
-    },
-    {
-      href: "/chat",
-      label: "Chat",
-    },
-    {
-      href: "/meetings",
-      label: "Reuniões",
-    },
-    {
-      href: "/help",
-      label: "Ajuda",
-    },
-  ]
+  const { settings } = useSettings()
 
   return (
-    <>
-      <div className={cn("flex h-16 items-center justify-between border-b px-4", className)}>
-        <div className="flex items-center gap-6">
-          <Link href="/" className="font-semibold">
-            Painel Financeiro
-          </Link>
-          <nav className="hidden items-center space-x-4 lg:flex">
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Início
-              </Link>
-            </Button>
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/analytics"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/analytics" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Análises
-              </Link>
-            </Button>
-            <Button asChild variant="link" size="sm">
-              <Link
-                href="/settings"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/settings" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                Configurações
-              </Link>
-            </Button>
-          </nav>
-        </div>
-        <div className="flex items-center gap-2">
-          {!isMobile && (
-            <form className="hidden lg:block">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input type="search" placeholder="Pesquisar..." className="w-64 rounded-lg bg-background pl-8" />
-              </div>
-            </form>
-          )}
-          <Button variant="outline" size="sm" className="h-8 lg:hidden" onClick={() => setOpen(true)}>
-            <Search className="h-4 w-4" />
-            <span className="sr-only">Pesquisar</span>
-          </Button>
-          <Notifications />
+    <div className="border-b">
+      <div className="flex h-16 items-center px-4 md:px-6">
+        <div className="ml-auto flex items-center space-x-4">
+          <div className="relative hidden md:flex">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Pesquisar..."
+              className="w-[200px] rounded-lg bg-background pl-8 md:w-[240px] lg:w-[320px]"
+            />
+          </div>
+
+          {/* Botão de Troca de Cor (Theme Toggle) */}
           <ThemeToggle />
-          <Button variant="outline" size="sm" className="h-8 gap-1">
-            <span className="hidden lg:inline">Minha Conta</span>
-          </Button>
+
+          {/* Botão de Notificações */}
+          <Notifications />
+
+          {/* Menu do Usuário */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={settings.avatar || "/placeholder.svg"} alt={settings.fullName} />
+                  <AvatarFallback>
+                    {settings.fullName
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">{settings.fullName}</p>
+                  <p className="text-xs leading-none text-muted-foreground">{settings.email}</p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/settings">Minha Conta</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Suporte</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sair</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Pesquisar em tudo..." />
-        <CommandList>
-          <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
-          <CommandGroup heading="Links">
-            {routes.map((route) => (
-              <CommandItem
-                key={route.href}
-                onSelect={() => {
-                  setOpen(false)
-                  window.location.href = route.href
-                }}
-              >
-                {route.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </>
+    </div>
   )
 }

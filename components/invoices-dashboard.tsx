@@ -7,6 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Download, Plus } from "lucide-react"
+import { ExportDataButton } from "@/components/export-data-button"
+import { exportToPDF } from "@/lib/pdf-export"
 
 interface Invoice {
   id: number
@@ -68,6 +70,26 @@ export function InvoicesDashboard({ userId }: InvoicesDashboardProps) {
     }
   }
 
+  // Função para exportar faturas para PDF
+  const handleExportPDF = async () => {
+    const headers = {
+      client: "Cliente",
+      amount: "Valor",
+      issue_date: "Data de Emissão",
+      due_date: "Data de Vencimento",
+      status: "Status",
+    }
+
+    await exportToPDF(
+      invoices,
+      headers,
+      "Relatório de Faturas",
+      "faturas_safe_finance",
+      ["issue_date", "due_date"],
+      "landscape",
+    )
+  }
+
   if (isLoading) {
     return (
       <Card>
@@ -104,9 +126,24 @@ export function InvoicesDashboard({ userId }: InvoicesDashboardProps) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-md font-medium">Faturas</CardTitle>
-        <Button variant="outline" size="sm">
-          <Plus className="h-4 w-4 mr-2" /> Nova Fatura
-        </Button>
+        <div className="flex space-x-2">
+          <ExportDataButton
+            data={invoices}
+            headers={{
+              client: "Cliente",
+              amount: "Valor",
+              issue_date: "Data de Emissão",
+              due_date: "Data de Vencimento",
+              status: "Status",
+            }}
+            dateFields={["issue_date", "due_date"]}
+            filename="faturas_safe_finance"
+            onExportPDF={handleExportPDF}
+          />
+          <Button variant="outline" size="sm">
+            <Plus className="h-4 w-4 mr-2" /> Nova Fatura
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         {invoices.length === 0 ? (

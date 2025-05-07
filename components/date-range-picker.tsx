@@ -16,7 +16,7 @@ interface DatePickerWithRangeProps {
   setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>
 }
 
-export function DatePickerWithRange({ className, date, setDate }: DatePickerWithRangeProps) {
+export function DateRangePicker({ className, date, setDate }: DatePickerWithRangeProps) {
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
