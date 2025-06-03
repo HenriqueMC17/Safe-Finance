@@ -55,4 +55,4 @@ Em caso de dúvidas ou parcerias, entre em contato:
 ---
 
 Feito com 💙 por Safe Finance
-```
+\`\`\`
