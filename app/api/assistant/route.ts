@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       invoices: userInvoices,
     }
 
-    // Gerar resposta com Groq
+    // Gerar resposta com Groq usando versão compatível
     const { text } = await generateText({
       model: groq("llama3-70b-8192"),
       prompt: `
