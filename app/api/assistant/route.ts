@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { generateText } from "ai"
+import { experimental_generateText as generateText } from "ai"
 import { groq } from "@ai-sdk/groq"
 import { db } from "@/lib/db"
 import { financial_insights, accounts, transactions, savings_goals, invoices } from "@/lib/schema"
@@ -51,20 +51,28 @@ export async function POST(request: Request) {
     // Gerar resposta com Groq usando versão compatível
     const { text } = await generateText({
       model: groq("llama3-70b-8192"),
-      prompt: `
-        Você é um assistente financeiro inteligente. Analise os dados financeiros abaixo e responda à pergunta do usuário.
-        
-        Dados financeiros:
-        ${JSON.stringify(context)}
-        
-        Pergunta do usuário: ${question}
-        
-        Forneça uma resposta útil, específica e personalizada baseada nos dados financeiros do usuário.
-        Inclua análises e recomendações práticas quando apropriado.
-        Use valores em Reais (R$) formatados corretamente.
-      `,
-      system:
-        "Você é um assistente financeiro especializado em análise de dados e recomendações personalizadas. Seja claro, objetivo e forneça insights acionáveis. Sempre use dados reais do usuário para contextualizar suas respostas.",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Você é um assistente financeiro especializado em análise de dados e recomendações personalizadas. Seja claro, objetivo e forneça insights acionáveis. Sempre use dados reais do usuário para contextualizar suas respostas.",
+        },
+        {
+          role: "user",
+          content: `
+            Você é um assistente financeiro inteligente. Analise os dados financeiros abaixo e responda à pergunta do usuário.
+            
+            Dados financeiros:
+            ${JSON.stringify(context)}
+            
+            Pergunta do usuário: ${question}
+            
+            Forneça uma resposta útil, específica e personalizada baseada nos dados financeiros do usuário.
+            Inclua análises e recomendações práticas quando apropriado.
+            Use valores em Reais (R$) formatados corretamente.
+          `,
+        },
+      ],
     })
 
     // Salvar o insight no banco de dados
