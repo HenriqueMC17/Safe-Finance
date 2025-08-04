@@ -7,6 +7,9 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { SettingsProvider } from "@/contexts/settings-context"
 import { LocaleProvider } from "@/contexts/locale-context"
 import { PageTransition } from "@/components/page-transition"
+import { OnboardingWizard } from "@/components/onboarding/onboarding-wizard"
+import { FinancialTips } from "@/components/education/financial-tips"
+import { AccessibilityMode } from "@/components/accessibility/accessibility-mode"
 import type React from "react"
 
 const inter = Inter({
@@ -44,12 +47,19 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#50c8a8" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Safe Finance" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
-          <SettingsProvider>
-            <LocaleProvider>
+          <LocaleProvider>
+            <SettingsProvider>
               <TooltipProvider delayDuration={0}>
+                <AccessibilityMode />
                 <div className="min-h-screen flex bg-background">
                   <Sidebar />
                   <div className="flex-1 flex flex-col min-w-0">
@@ -61,10 +71,57 @@ export default function RootLayout({
                     </main>
                   </div>
                 </div>
+                <OnboardingWizard onComplete={() => {}} />
+                <FinancialTips />
               </TooltipProvider>
-            </LocaleProvider>
-          </SettingsProvider>
+            </SettingsProvider>
+          </LocaleProvider>
         </ThemeProvider>
+
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                      console.log('SW registration failed: ', registrationError);
+                    });
+                });
+              }
+            `,
+          }}
+        />
+
+        {/* PWA Install Prompt */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              let deferredPrompt;
+              window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                const installButton = document.getElementById('install-button');
+                if (installButton) {
+                  installButton.style.display = 'block';
+                  installButton.addEventListener('click', () => {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                      if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                      }
+                      deferredPrompt = null;
+                    });
+                  });
+                }
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   )
