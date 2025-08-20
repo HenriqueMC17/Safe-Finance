@@ -1,170 +1,266 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
-import { financial_insights, accounts, transactions, savings_goals, invoices } from "@/lib/schema"
-import { eq, desc } from "drizzle-orm"
+import { accounts, transactions, savings_goals, invoices, financial_insights } from "@/lib/schema"
+import { eq, desc, and, gte } from "drizzle-orm"
 
-// Financial analysis functions
-function analyzeSpendingPatterns(transactions: any[]) {
-  const expenses = transactions.filter((t) => t.amount < 0)
-  const categories: Record<string, number> = {}
+interface FinancialData {
+  accounts: any[]
+  transactions: any[]
+  savingsGoals: any[]
+  invoices: any[]
+  totalBalance: number
+  monthlyIncome: number
+  monthlyExpenses: number
+}
 
-  expenses.forEach((t) => {
-    const category = t.category || "Outros"
-    categories[category] = (categories[category] || 0) + Math.abs(t.amount)
-  })
+async function getUserFinancialData(userId: number): Promise<FinancialData> {
+  // Buscar contas do usuário
+  const userAccounts = await db.select().from(accounts).where(eq(accounts.user_id, userId))
 
-  const sortedCategories = Object.entries(categories)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 3)
+  // Buscar transações dos últimos 3 meses
+  const threeMonthsAgo = new Date()
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3)
+
+  const accountIds = userAccounts.map((acc) => acc.id)
+  const recentTransactions =
+    accountIds.length > 0
+      ? await db
+          .select()
+          .from(transactions)
+          .where(and(eq(transactions.account_id, accountIds[0]), gte(transactions.date, threeMonthsAgo)))
+          .orderBy(desc(transactions.date))
+      : []
+
+  // Buscar metas de economia
+  const userSavingsGoals = await db.select().from(savings_goals).where(eq(savings_goals.user_id, userId))
+
+  // Buscar faturas
+  const userInvoices = await db.select().from(invoices).where(eq(invoices.user_id, userId))
+
+  // Calcular métricas
+  const totalBalance = userAccounts.reduce((sum, acc) => sum + Number(acc.balance), 0)
+  const monthlyIncome =
+    recentTransactions.filter((t) => Number(t.amount) > 0).reduce((sum, t) => sum + Number(t.amount), 0) / 3
+  const monthlyExpenses =
+    recentTransactions.filter((t) => Number(t.amount) < 0).reduce((sum, t) => sum + Math.abs(Number(t.amount)), 0) / 3
 
   return {
-    topCategories: sortedCategories,
-    totalExpenses: expenses.reduce((sum, t) => sum + Math.abs(t.amount), 0),
-    averageTransaction:
-      expenses.length > 0 ? expenses.reduce((sum, t) => sum + Math.abs(t.amount), 0) / expenses.length : 0,
+    accounts: userAccounts,
+    transactions: recentTransactions,
+    savingsGoals: userSavingsGoals,
+    invoices: userInvoices,
+    totalBalance,
+    monthlyIncome,
+    monthlyExpenses,
   }
 }
 
-function generateFinancialAdvice(data: any) {
-  const { accounts, transactions, savingsGoals, invoices } = data
-  const analysis = analyzeSpendingPatterns(transactions)
+function generateResponse(question: string, data: FinancialData): string {
+  const { totalBalance, monthlyIncome, monthlyExpenses, transactions, savingsGoals, invoices } = data
 
-  let advice = "## Análise Financeira Personalizada\n\n"
+  const questionLower = question.toLowerCase()
 
   // Análise de saldo
-  const totalBalance = accounts.reduce((sum: number, acc: any) => sum + acc.balance, 0)
-  if (totalBalance > 0) {
-    advice += `✅ **Situação Positiva**: Você possui um saldo total de R$ ${totalBalance.toFixed(2)}.\n\n`
-  } else {
-    advice += `⚠️ **Atenção**: Seu saldo está negativo em R$ ${Math.abs(totalBalance).toFixed(2)}. Considere revisar seus gastos.\n\n`
-  }
-
-  // Análise de gastos
-  if (analysis.topCategories.length > 0) {
-    advice += "### 📊 Principais Categorias de Gastos:\n"
-    analysis.topCategories.forEach(([category, amount], index) => {
-      advice += `${index + 1}. **${category}**: R$ ${amount.toFixed(2)}\n`
-    })
-    advice += "\n"
-  }
-
-  // Recomendações baseadas em metas
-  if (savingsGoals.length > 0) {
-    advice += "### 🎯 Suas Metas de Economia:\n"
-    savingsGoals.forEach((goal: any) => {
-      const progress = (goal.current_amount / goal.target_amount) * 100
-      advice += `- **${goal.name}**: ${progress.toFixed(1)}% concluída (R$ ${goal.current_amount.toFixed(2)} de R$ ${goal.target_amount.toFixed(2)})\n`
-    })
-    advice += "\n"
-  }
-
-  // Alertas sobre faturas
-  if (invoices.length > 0) {
-    const overdueInvoices = invoices.filter((inv: any) => new Date(inv.due_date) < new Date() && inv.status !== "paid")
-    if (overdueInvoices.length > 0) {
-      advice += `🚨 **Atenção**: Você possui ${overdueInvoices.length} fatura(s) em atraso.\n\n`
+  if (questionLower.includes("saldo") || questionLower.includes("balance")) {
+    if (totalBalance > 0) {
+      return `💰 Seu saldo atual é de R$ ${totalBalance.toFixed(2)}. ${totalBalance > monthlyExpenses * 6 ? "Excelente reserva de emergência!" : "Considere aumentar sua reserva de emergência."}`
+    } else {
+      return `⚠️ Seu saldo está negativo em R$ ${Math.abs(totalBalance).toFixed(2)}. Recomendo revisar seus gastos urgentemente.`
     }
   }
 
-  // Recomendações gerais
-  advice += "### 💡 Recomendações:\n"
-  if (analysis.averageTransaction > 100) {
-    advice += "- Considere revisar transações de alto valor para identificar oportunidades de economia\n"
-  }
-  if (totalBalance > analysis.totalExpenses * 3) {
-    advice += "- Você tem uma boa reserva! Considere investir parte do dinheiro\n"
-  }
-  if (savingsGoals.length === 0) {
-    advice += "- Defina metas de economia para melhor controle financeiro\n"
+  // Análise de gastos
+  if (questionLower.includes("gasto") || questionLower.includes("despesa") || questionLower.includes("expense")) {
+    const expensesByCategory: Record<string, number> = {}
+    transactions
+      .filter((t) => Number(t.amount) < 0)
+      .forEach((t) => {
+        const category = t.category || "Outros"
+        expensesByCategory[category] = (expensesByCategory[category] || 0) + Math.abs(Number(t.amount))
+      })
+
+    const topCategory = Object.entries(expensesByCategory).sort(([, a], [, b]) => b - a)[0]
+
+    if (topCategory) {
+      return `📊 Seus gastos mensais médios são R$ ${monthlyExpenses.toFixed(2)}. Maior categoria: ${topCategory[0]} (R$ ${topCategory[1].toFixed(2)}). ${monthlyExpenses > monthlyIncome ? "⚠️ Gastos excedem receitas!" : "✅ Gastos controlados."}`
+    }
+
+    return `📊 Seus gastos mensais médios são R$ ${monthlyExpenses.toFixed(2)}.`
   }
 
-  return advice
+  // Análise de receitas
+  if (questionLower.includes("receita") || questionLower.includes("renda") || questionLower.includes("income")) {
+    return `💵 Sua receita mensal média é R$ ${monthlyIncome.toFixed(2)}. ${monthlyIncome > monthlyExpenses ? "✅ Receita superior aos gastos." : "⚠️ Receita insuficiente para cobrir gastos."}`
+  }
+
+  // Análise de metas
+  if (questionLower.includes("meta") || questionLower.includes("goal") || questionLower.includes("objetivo")) {
+    if (savingsGoals.length === 0) {
+      return `🎯 Você não possui metas de economia definidas. Recomendo criar metas específicas para melhor controle financeiro.`
+    }
+
+    const totalSaved = savingsGoals.reduce((sum, goal) => sum + Number(goal.current_amount), 0)
+    const totalTarget = savingsGoals.reduce((sum, goal) => sum + Number(goal.target_amount), 0)
+    const progress = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0
+
+    return `🎯 Você tem ${savingsGoals.length} meta(s) ativa(s). Progresso geral: ${progress.toFixed(1)}% (R$ ${totalSaved.toFixed(2)} de R$ ${totalTarget.toFixed(2)})`
+  }
+
+  // Análise de faturas
+  if (questionLower.includes("fatura") || questionLower.includes("conta") || questionLower.includes("invoice")) {
+    const overdueInvoices = invoices.filter((inv) => new Date(inv.due_date) < new Date() && inv.status !== "paid")
+
+    if (overdueInvoices.length > 0) {
+      const overdueAmount = overdueInvoices.reduce((sum, inv) => sum + Number(inv.amount), 0)
+      return `🚨 Você tem ${overdueInvoices.length} fatura(s) em atraso totalizando R$ ${overdueAmount.toFixed(2)}. Priorize o pagamento!`
+    }
+
+    return `✅ Todas as suas faturas estão em dia. Continue assim!`
+  }
+
+  // Análise geral de saúde financeira
+  if (questionLower.includes("saúde") || questionLower.includes("situação") || questionLower.includes("análise")) {
+    let score = 0
+    let feedback = "📊 **Análise da Sua Saúde Financeira:**\n\n"
+
+    // Saldo positivo (25 pontos)
+    if (totalBalance > 0) {
+      score += 25
+      feedback += "✅ Saldo positivo (+25 pts)\n"
+    } else {
+      feedback += "❌ Saldo negativo (0 pts)\n"
+    }
+
+    // Receita > Gastos (25 pontos)
+    if (monthlyIncome > monthlyExpenses) {
+      score += 25
+      feedback += "✅ Receita superior aos gastos (+25 pts)\n"
+    } else {
+      feedback += "❌ Gastos excedem receita (0 pts)\n"
+    }
+
+    // Reserva de emergência (25 pontos)
+    if (totalBalance >= monthlyExpenses * 6) {
+      score += 25
+      feedback += "✅ Reserva de emergência adequada (+25 pts)\n"
+    } else if (totalBalance >= monthlyExpenses * 3) {
+      score += 15
+      feedback += "⚠️ Reserva de emergência parcial (+15 pts)\n"
+    } else {
+      feedback += "❌ Reserva de emergência insuficiente (0 pts)\n"
+    }
+
+    // Metas definidas (25 pontos)
+    if (savingsGoals.length >= 3) {
+      score += 25
+      feedback += "✅ Múltiplas metas definidas (+25 pts)\n"
+    } else if (savingsGoals.length > 0) {
+      score += 15
+      feedback += "⚠️ Algumas metas definidas (+15 pts)\n"
+    } else {
+      feedback += "❌ Nenhuma meta definida (0 pts)\n"
+    }
+
+    feedback += `\n**Pontuação Final: ${score}/100**\n\n`
+
+    if (score >= 80) {
+      feedback += "🏆 **Excelente!** Sua saúde financeira está ótima!"
+    } else if (score >= 60) {
+      feedback += "👍 **Boa!** Alguns ajustes podem melhorar sua situação."
+    } else if (score >= 40) {
+      feedback += "⚠️ **Atenção!** Precisa de melhorias significativas."
+    } else {
+      feedback += "🚨 **Crítico!** Situação financeira requer ação imediata."
+    }
+
+    return feedback
+  }
+
+  // Resposta padrão
+  return `🤖 Olá! Sou seu assistente financeiro. Posso ajudar com análises de saldo, gastos, receitas, metas e saúde financeira geral. 
+
+**Dados atuais:**
+- Saldo: R$ ${totalBalance.toFixed(2)}
+- Receita mensal: R$ ${monthlyIncome.toFixed(2)}
+- Gastos mensais: R$ ${monthlyExpenses.toFixed(2)}
+- Metas ativas: ${savingsGoals.length}
+
+Faça uma pergunta específica para uma análise detalhada!`
 }
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { userId, question } = body
+    const { message, userId } = body
 
-    if (!userId || !question) {
-      return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 })
+    if (!message || !userId) {
+      return NextResponse.json(
+        {
+          error: "Mensagem e ID do usuário são obrigatórios",
+        },
+        { status: 400 },
+      )
     }
 
     // Buscar dados financeiros do usuário
-    const userAccounts = await db.select().from(accounts).where(eq(accounts.user_id, userId))
+    const financialData = await getUserFinancialData(userId)
 
-    const accountIds = userAccounts.map((account) => account.id)
-    const userTransactions =
-      accountIds.length > 0
-        ? await db
-            .select()
-            .from(transactions)
-            .where(eq(transactions.account_id, accountIds[0]))
-            .orderBy(desc(transactions.date))
-            .limit(50)
-        : []
+    // Gerar resposta baseada na pergunta e dados
+    const response = generateResponse(message, financialData)
 
-    const userSavingsGoals = await db.select().from(savings_goals).where(eq(savings_goals.user_id, userId))
-
-    const userInvoices = await db
-      .select()
-      .from(invoices)
-      .where(eq(invoices.user_id, userId))
-      .orderBy(invoices.due_date)
-      .limit(10)
-
-    const context = {
-      accounts: userAccounts,
-      transactions: userTransactions,
-      savingsGoals: userSavingsGoals,
-      invoices: userInvoices,
-    }
-
-    // Gerar resposta baseada na pergunta
-    let answer = ""
-    const questionLower = question.toLowerCase()
-
-    if (questionLower.includes("saldo") || questionLower.includes("dinheiro")) {
-      const totalBalance = userAccounts.reduce((sum, acc) => sum + acc.balance, 0)
-      answer = `Seu saldo total atual é de R$ ${totalBalance.toFixed(2)}. `
-      if (totalBalance > 0) {
-        answer += "Você está em uma situação financeira positiva! 💚"
-      } else {
-        answer += "Recomendo revisar seus gastos para equilibrar as finanças. 📊"
-      }
-    } else if (questionLower.includes("gasto") || questionLower.includes("despesa")) {
-      const analysis = analyzeSpendingPatterns(userTransactions)
-      answer = `Seus gastos totais recentes somam R$ ${analysis.totalExpenses.toFixed(2)}. `
-      if (analysis.topCategories.length > 0) {
-        answer += `Sua principal categoria de gastos é "${analysis.topCategories[0][0]}" com R$ ${analysis.topCategories[0][1].toFixed(2)}.`
-      }
-    } else if (questionLower.includes("meta") || questionLower.includes("economia")) {
-      if (userSavingsGoals.length > 0) {
-        answer = `Você possui ${userSavingsGoals.length} meta(s) de economia ativa(s). `
-        const totalSaved = userSavingsGoals.reduce((sum, goal) => sum + goal.current_amount, 0)
-        const totalTarget = userSavingsGoals.reduce((sum, goal) => sum + goal.target_amount, 0)
-        const progress = (totalSaved / totalTarget) * 100
-        answer += `Progresso geral: ${progress.toFixed(1)}% (R$ ${totalSaved.toFixed(2)} de R$ ${totalTarget.toFixed(2)}).`
-      } else {
-        answer =
-          "Você ainda não possui metas de economia definidas. Recomendo criar algumas para melhor controle financeiro! 🎯"
-      }
-    } else {
-      // Análise geral
-      answer = generateFinancialAdvice(context)
-    }
-
-    // Salvar o insight no banco de dados
+    // Salvar a interação como insight
     await db.insert(financial_insights).values({
       user_id: userId,
-      title: question,
-      content: answer,
+      title: `Consulta: ${message.substring(0, 50)}...`,
+      content: response,
       category: "assistant",
     })
 
-    return NextResponse.json({ answer })
+    return NextResponse.json({
+      response,
+      timestamp: new Date().toISOString(),
+    })
   } catch (error) {
     console.error("Erro no assistente financeiro:", error)
-    return NextResponse.json({ error: "Erro ao processar sua pergunta" }, { status: 500 })
+    return NextResponse.json(
+      {
+        error: "Erro interno do servidor",
+      },
+      { status: 500 },
+    )
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const userId = searchParams.get("userId")
+
+    if (!userId) {
+      return NextResponse.json(
+        {
+          error: "ID do usuário é obrigatório",
+        },
+        { status: 400 },
+      )
+    }
+
+    // Buscar histórico de conversas
+    const conversations = await db
+      .select()
+      .from(financial_insights)
+      .where(and(eq(financial_insights.user_id, Number.parseInt(userId)), eq(financial_insights.category, "assistant")))
+      .orderBy(desc(financial_insights.created_at))
+      .limit(10)
+
+    return NextResponse.json({ conversations })
+  } catch (error) {
+    console.error("Erro ao buscar conversas:", error)
+    return NextResponse.json(
+      {
+        error: "Erro interno do servidor",
+      },
+      { status: 500 },
+    )
   }
 }
