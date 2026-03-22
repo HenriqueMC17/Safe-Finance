@@ -1,0 +1,205 @@
+﻿app/api/budgets/route.ts(22,11): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(left: PgColumn<{ name: "start_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>, right: string | SQLWrapper): SQL<...>', gave the following error.
+    Argument of type 'Date' is not assignable to parameter of type 'string | SQLWrapper'.
+  Overload 2 of 3, '(left: Aliased<Date>, right: SQLWrapper | Date): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "start_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'Aliased<Date>'.
+      Type 'PgColumn<{ name: "start_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is missing the following properties from type 'Aliased<Date>': sql, fieldAlias
+  Overload 3 of 3, '(left: never, right: unknown): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "start_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'never'.
+app/api/budgets/route.ts(23,14): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(left: PgColumn<{ name: "end_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: false; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>, right: string | SQLWrapper): SQL<...>', gave the following error.
+    Argument of type 'Date' is not assignable to parameter of type 'string | SQLWrapper'.
+  Overload 2 of 3, '(left: Aliased<Date>, right: SQLWrapper | Date): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "end_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: false; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'Aliased<Date>'.
+      Type 'PgColumn<{ name: "end_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: false; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is missing the following properties from type 'Aliased<Date>': sql, fieldAlias
+  Overload 3 of 3, '(left: never, right: unknown): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "end_date"; tableName: "budgets"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: false; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'never'.
+app/api/budgets/route.ts(53,9): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(values: { amount: string | SQL<unknown> | Placeholder<string, any>; category: string | SQL<unknown> | Placeholder<string, any>; period: string | SQL<unknown> | Placeholder<...>; ... 5 more ...; end_date?: string | ... 3 more ... | undefined; }[]): PgInsertBase<...>', gave the following error.
+    Object literal may only specify known properties, and 'user_id' does not exist in type '{ amount: string | SQL<unknown> | Placeholder<string, any>; category: string | SQL<unknown> | Placeholder<string, any>; period: string | SQL<unknown> | Placeholder<...>; ... 5 more ...; end_date?: string | ... 3 more ... | undefined; }[]'.
+app/api/invoices/route.ts(25,21): error TS2339: Property 'where' does not exist on type 'Omit<PgSelectBase<"invoices", { id: PgColumn<{ name: "id"; tableName: "invoices"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 7 more ...; updated_at: PgColumn<...>; }, ... 5 m...'.
+app/api/invoices/route.ts(30,21): error TS2339: Property 'where' does not exist on type 'Omit<PgSelectBase<"invoices", { id: PgColumn<{ name: "id"; tableName: "invoices"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 7 more ...; updated_at: PgColumn<...>; }, ... 5 m...'.
+app/api/invoices/route.ts(31,13): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(left: PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>, right: string | SQLWrapper): SQL<...>', gave the following error.
+    Argument of type 'Date' is not assignable to parameter of type 'string | SQLWrapper'.
+  Overload 2 of 3, '(left: Aliased<Date>, right: SQLWrapper | Date): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'Aliased<Date>'.
+      Type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is missing the following properties from type 'Aliased<Date>': sql, fieldAlias
+  Overload 3 of 3, '(left: never, right: unknown): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'never'.
+app/api/invoices/route.ts(31,60): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(left: PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>, right: string | SQLWrapper): SQL<...>', gave the following error.
+    Argument of type 'Date' is not assignable to parameter of type 'string | SQLWrapper'.
+  Overload 2 of 3, '(left: Aliased<Date>, right: SQLWrapper | Date): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'Aliased<Date>'.
+      Type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is missing the following properties from type 'Aliased<Date>': sql, fieldAlias
+  Overload 3 of 3, '(left: never, right: unknown): SQL<unknown>', gave the following error.
+    Argument of type 'PgColumn<{ name: "issue_date"; tableName: "invoices"; dataType: "string"; columnType: "PgDateString"; data: string; driverParam: string; notNull: true; hasDefault: false; isPrimaryKey: false; isAutoincrement: false; ... 4 more ...; generated: undefined; }, {}, {}>' is not assignable to parameter of type 'never'.
+app/api/invoices/route.ts(83,9): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(values: { amount: string | SQL<unknown> | Placeholder<string, any>; client: string | SQL<unknown> | Placeholder<string, any>; issue_date: string | SQL<unknown> | Placeholder<...>; ... 5 more ...; user_id?: number | ... 3 more ... | undefined; }[]): PgInsertBase<...>', gave the following error.
+    Object literal may only specify known properties, and 'user_id' does not exist in type '{ amount: string | SQL<unknown> | Placeholder<string, any>; client: string | SQL<unknown> | Placeholder<string, any>; issue_date: string | SQL<unknown> | Placeholder<...>; ... 5 more ...; user_id?: number | ... 3 more ... | undefined; }[]'.
+app/api/savings-goals/route.ts(73,9): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(values: { name: string | SQL<unknown> | Placeholder<string, any>; target_amount: string | SQL<unknown> | Placeholder<string, any>; id?: number | SQL<unknown> | Placeholder<...> | undefined; ... 4 more ...; target_date?: string | ... 3 more ... | undefined; }[]): PgInsertBase<...>', gave the following error.
+    Object literal may only specify known properties, and 'user_id' does not exist in type '{ name: string | SQL<unknown> | Placeholder<string, any>; target_amount: string | SQL<unknown> | Placeholder<string, any>; id?: number | SQL<unknown> | Placeholder<...> | undefined; ... 4 more ...; target_date?: string | ... 3 more ... | undefined; }[]'.
+app/api/sustainability/badges/route.ts(17,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/badges/route.ts(29,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/badges/route.ts(61,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/badges/route.ts(71,29): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/badges/route.ts(75,9): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/carbon-footprint/route.ts(30,30): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/carbon-footprint/route.ts(51,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/challenges/route.ts(17,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/challenges/route.ts(48,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/challenges/route.ts(74,33): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/challenges/route.ts(83,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/esg-investments/route.ts(16,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/esg-investments/route.ts(52,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/esg-investments/route.ts(90,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-budgets/route.ts(16,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-budgets/route.ts(45,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-budgets/route.ts(71,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-budgets/route.ts(97,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-points/route.ts(17,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-points/route.ts(27,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-points/route.ts(38,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/sustainability/green-points/route.ts(72,7): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+app/api/transactions/route.ts(20,7): error TS2740: Type 'Omit<PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; },...' is missing the following properties from type 'PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; }, ... ...': config, joinsNotNullableMap, tableName, isPartialSelect, and 6 more.
+app/api/transactions/route.ts(25,7): error TS2740: Type 'Omit<PgSelectBase<"transactions", Record<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; ... 6 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>;...' is missing the following properties from type 'PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; }, ... ...': config, joinsNotNullableMap, tableName, isPartialSelect, and 7 more.
+app/api/transactions/route.ts(33,7): error TS2740: Type 'Omit<PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; },...' is missing the following properties from type 'PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; }, ... ...': config, joinsNotNullableMap, tableName, isPartialSelect, and 6 more.
+app/api/transactions/route.ts(38,7): error TS2740: Type 'Omit<PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; },...' is missing the following properties from type 'PgSelectBase<"transactions", { id: PgColumn<{ name: "id"; tableName: "transactions"; dataType: "number"; columnType: "PgSerial"; data: number; driverParam: number; notNull: true; hasDefault: true; isPrimaryKey: true; ... 5 more ...; generated: undefined; }, {}, {}>; ... 6 more ...; created_at: PgColumn<...>; }, ... ...': config, joinsNotNullableMap, tableName, isPartialSelect, and 6 more.
+app/chat/page.tsx(71,24): error TS7031: Binding element 'onSelectContact' implicitly has an 'any' type.
+app/chat/page.tsx(71,41): error TS7031: Binding element 'selectedContact' implicitly has an 'any' type.
+app/dashboard/page.tsx(67,80): error TS2322: Type '{ accountId: number; }' is not assignable to type 'IntrinsicAttributes & RealTransactionsProps'.
+  Property 'accountId' does not exist on type 'IntrinsicAttributes & RealTransactionsProps'.
+app/financial-analysis/page.tsx(65,42): error TS2322: Type '{ date: DateRange | undefined; setDate: Dispatch<SetStateAction<DateRange | undefined>>; }' is not assignable to type 'IntrinsicAttributes & DateRangePickerProps'.
+  Property 'setDate' does not exist on type 'IntrinsicAttributes & DateRangePickerProps'.
+app/invoices/page.tsx(43,66): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Pago: string; Pendente: string; Atrasado: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Pago: string; Pendente: string; Atrasado: string; }'.
+app/members/page.tsx(91,66): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Ativo: string; Inativo: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Ativo: string; Inativo: string; }'.
+app/payments/page.tsx(42,66): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Conclu├¡do: string; Processando: string; Falhou: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Conclu├¡do: string; Processando: string; Falhou: string; }'.
+app/settings/page.tsx(355,97): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(365,96): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(374,110): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(386,107): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(396,103): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(406,101): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(417,101): error TS2322: Type 'string' is not assignable to type '"real-time" | "daily" | "weekly" | undefined'.
+app/settings/page.tsx(463,99): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(473,98): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLButtonElement'.
+app/settings/page.tsx(486,94): error TS2322: Type 'string' is not assignable to type '"public" | "private" | undefined'.
+app/settings/page.tsx(508,94): error TS2322: Type 'string' is not assignable to type '"6-months" | "1-year" | "2-years" | "indefinite" | undefined'.
+components/add-money-modal.tsx(12,33): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+components/add-money-modal.tsx(12,41): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+components/add-money-modal.tsx(12,50): error TS7031: Binding element 'onAddMoney' implicitly has an 'any' type.
+components/analytics/account-growth.tsx(41,14): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+components/analytics/account-growth.tsx(44,28): error TS7031: Binding element 'active' implicitly has an 'any' type.
+components/analytics/account-growth.tsx(44,36): error TS7031: Binding element 'payload' implicitly has an 'any' type.
+components/analytics/account-growth.tsx(44,45): error TS7031: Binding element 'label' implicitly has an 'any' type.
+components/analytics/account-growth.tsx(46,23): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+components/analytics/account-growth.tsx(71,28): error TS2739: Type '{}' is missing the following properties from type '{ active: any; payload: any; label: any; }': active, payload, label
+components/analytics/analytics-tab.tsx(104,44): error TS2345: Argument of type 'ValueType | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+components/analytics/notifications-tab.tsx(29,31): error TS7006: Parameter 'id' implicitly has an 'any' type.
+components/analytics/notifications-tab.tsx(30,51): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ account: boolean; security: boolean; performance: boolean; market: boolean; financial: boolean; user: boolean; }'.
+components/analytics/notifications-tab.tsx(46,32): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ account: boolean; security: boolean; performance: boolean; market: boolean; financial: boolean; user: boolean; }'.
+  No index signature with a parameter of type 'string' was found on type '{ account: boolean; security: boolean; performance: boolean; market: boolean; financial: boolean; user: boolean; }'.
+components/analytics/overview-tab.tsx(35,24): error TS2322: Type '{ comparisonPeriod: string; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'comparisonPeriod' does not exist on type 'IntrinsicAttributes'.
+components/analytics/overview-tab.tsx(43,27): error TS2322: Type '{ comparisonPeriod: string; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'comparisonPeriod' does not exist on type 'IntrinsicAttributes'.
+components/analytics/overview-tab.tsx(61,28): error TS2322: Type '{ comparisonPeriod: string; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'comparisonPeriod' does not exist on type 'IntrinsicAttributes'.
+components/analytics/recent-transactions.tsx(58,76): error TS2339: Property 'replace' does not exist on type 'never'.
+components/analytics/recent-transactions.tsx(84,33): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+components/analytics/report-generator.tsx(90,44): error TS2322: Type '{ date: DateRange | undefined; setDate: Dispatch<SetStateAction<DateRange | undefined>>; }' is not assignable to type 'IntrinsicAttributes & DateRangePickerProps'.
+  Property 'setDate' does not exist on type 'IntrinsicAttributes & DateRangePickerProps'.
+components/analytics/reports-tab.tsx(81,24): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+  No index signature with a parameter of type 'string' was found on type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+components/analytics/reports-tab.tsx(125,21): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+  No index signature with a parameter of type 'string' was found on type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+components/analytics/reports-tab.tsx(149,16): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+  No index signature with a parameter of type 'string' was found on type '{ "Resumo Financeiro": { id: number; metric: string; value: string; }[]; "Aquisi\u00E7\u00E3o de Clientes": { id: number; metric: string; value: string; }[]; "Desempenho de Produtos": { id: number; metric: string; value: string; }[]; "Avalia\u00E7\u00E3o de Riscos": { ...; }[]; "An\u00E1lise de Campanhas de Marketin...'.
+components/analytics/reports-tab.tsx(149,54): error TS7006: Parameter 'row' implicitly has an 'any' type.
+components/analytics/revenue-chart.tsx(49,16): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+components/analytics/revenue-chart.tsx(53,28): error TS7031: Binding element 'active' implicitly has an 'any' type.
+components/analytics/revenue-chart.tsx(53,36): error TS7031: Binding element 'payload' implicitly has an 'any' type.
+components/analytics/revenue-chart.tsx(53,45): error TS7031: Binding element 'label' implicitly has an 'any' type.
+components/analytics/revenue-chart.tsx(55,23): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Jan: string; Feb: string; Mar: string; Apr: string; May: string; Jun: string; Jul: string; Aug: string; Sep: string; Oct: string; Nov: string; Dec: string; }'.
+components/analytics/revenue-chart.tsx(85,28): error TS2739: Type '{}' is missing the following properties from type '{ active: any; payload: any; label: any; }': active, payload, label
+components/analytics/spending-by-category.tsx(72,61): error TS18048: 'percent' is possibly 'undefined'.
+components/business-metrics.tsx(73,62): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ "No Caminho": string; Atrasado: string; Adiantado: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ "No Caminho": string; Atrasado: string; Adiantado: string; }'.
+components/export-dashboard-data.tsx(265,44): error TS2322: Type '{ date: DateRange | undefined; setDate: Dispatch<SetStateAction<DateRange | undefined>>; }' is not assignable to type 'IntrinsicAttributes & DateRangePickerProps'.
+  Property 'setDate' does not exist on type 'IntrinsicAttributes & DateRangePickerProps'.
+components/forecasts/financial-forecast.tsx(168,36): error TS2339: Property 'payload' does not exist on type 'TooltipProps<number, string>'.
+components/forecasts/financial-forecast.tsx(168,45): error TS2339: Property 'label' does not exist on type 'TooltipProps<number, string>'.
+components/forecasts/financial-forecast.tsx(173,25): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+components/forecasts/financial-forecast.tsx(173,32): error TS7006: Parameter 'index' implicitly has an 'any' type.
+components/layout.tsx(17,29): error TS2322: Type '{ isFloating: boolean; }' is not assignable to type 'IntrinsicAttributes & SidebarProps'.
+  Property 'isFloating' does not exist on type 'IntrinsicAttributes & SidebarProps'.
+components/list03.tsx(58,78): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Pending: string; "In Progress": string; Completed: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Pending: string; "In Progress": string; Completed: string; }'.
+components/notifications.tsx(66,38): error TS7006: Parameter 'id' implicitly has an 'any' type.
+components/request-money-modal.tsx(21,37): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+components/request-money-modal.tsx(21,45): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+components/request-money-modal.tsx(21,54): error TS7031: Binding element 'onRequestMoney' implicitly has an 'any' type.
+components/request-money-modal.tsx(65,66): error TS2345: Argument of type '{ id: string; name: string; phoneNumber: string; email: string; } | undefined' is not assignable to parameter of type 'SetStateAction<null>'.
+  Type 'undefined' is not assignable to type 'SetStateAction<null>'.
+components/request-money-modal.tsx(80,63): error TS2339: Property 'name' does not exist on type 'never'.
+components/request-money-modal.tsx(81,64): error TS2339: Property 'email' does not exist on type 'never'.
+components/request-money-modal.tsx(82,64): error TS2339: Property 'phoneNumber' does not exist on type 'never'.
+components/request-money-modal.tsx(118,50): error TS18047: 'selectedContact' is possibly 'null'.
+components/send-money-modal.tsx(13,34): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+components/send-money-modal.tsx(13,42): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+components/send-money-modal.tsx(13,51): error TS7031: Binding element 'onSendMoney' implicitly has an 'any' type.
+components/send-money-modal.tsx(13,64): error TS7031: Binding element 'accounts' implicitly has an 'any' type.
+components/send-money-modal.tsx(35,40): error TS7006: Parameter 'acc' implicitly has an 'any' type.
+components/send-money-modal.tsx(89,34): error TS7006: Parameter 'account' implicitly has an 'any' type.
+components/sustainability/esg-investment-portfolio.tsx(564,25): error TS2322: Type '(value: number, name: string) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(value: number, name: string) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'value' and 'value' are incompatible.
+      Type 'ValueType | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+components/sustainability/esg-investment-portfolio.tsx(599,35): error TS2339: Property 'category' does not exist on type 'PieLabelRenderProps'.
+components/sustainability/esg-investment-portfolio.tsx(608,32): error TS2322: Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'value' and 'value' are incompatible.
+      Type 'ValueType | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+components/sustainability/green-points-tracker.tsx(321,28): error TS2322: Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'value' and 'value' are incompatible.
+      Type 'ValueType | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+components/sustainability/green-points-tracker.tsx(345,21): error TS2322: Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(value: number) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'value' and 'value' are incompatible.
+      Type 'ValueType | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+components/sustainability/sustainability-dashboard.tsx(268,23): error TS2322: Type '(value: number, name: string) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(value: number, name: string) => [string, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'value' and 'value' are incompatible.
+      Type 'ValueType | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+components/sustainability/sustainability-dashboard.tsx(303,33): error TS2339: Property 'category' does not exist on type 'PieLabelRenderProps'.
+components/top-up-modal.tsx(12,30): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+components/top-up-modal.tsx(12,38): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+components/top-up-modal.tsx(12,47): error TS7031: Binding element 'onTopUp' implicitly has an 'any' type.
+components/ui/calendar.tsx(47,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+components/upcoming-events.tsx(70,62): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Pendente: string; "Em Andamento": string; Conclu├¡do: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Pendente: string; "Em Andamento": string; Conclu├¡do: string; }'.
+lib/auth.ts(8,33): error TS2339: Property 'users' does not exist on type 'DrizzleTypeError<"Seems like the schema generic is missing - did you forget to add it to your DB type?">'.
+lib/auth.ts(34,15): error TS2339: Property 'set' does not exist on type 'Promise<ReadonlyRequestCookies>'.
+lib/auth.ts(50,37): error TS2339: Property 'get' does not exist on type 'Promise<ReadonlyRequestCookies>'.
+lib/auth.ts(59,17): error TS2339: Property 'delete' does not exist on type 'Promise<ReadonlyRequestCookies>'.
+lib/auth.ts(75,13): error TS2339: Property 'delete' does not exist on type 'Promise<ReadonlyRequestCookies>'.
+lib/db.ts(13,23): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+lib/export-utils.ts(92,12): error TS2322: Type '(string | undefined)[]' is not assignable to type 'string[]'.
+  Type 'string | undefined' is not assignable to type 'string'.
+    Type 'undefined' is not assignable to type 'string'.
+lib/pdf-export.ts(15,21): error TS2554: Expected 2 arguments, but got 1.
+lib/pdf-export.ts(44,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
