@@ -1,32 +1,57 @@
-# Safe Finance — Leand Peage
+# 🌐 Safe Finance - Landing Page
 
-**Safe Finance** é um aplicativo desenvolvido com o objetivo principal de auxiliar na **gestão financeira**, de maneira **intuitiva** e **prática**. 
+[![Next.js 14](https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![React 18](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-Seu design é pensado especialmente para atender públicos que **não possuem conhecimentos prévios sobre o uso de aplicativos bancários** ou **planilhas de Excel**, tornando a experiência acessível, eficiente e livre de complexidade.
+A high-converting, cinematic landing page for the Safe Finance ecosystem.
 
-## 🚀 Funcionalidades principais
+## ✨ Premium Features
 
-- Controle de receitas e despesas
-- Visualização gráfica dos gastos mensais
-- Alertas de vencimento de contas
-- Planejamento financeiro simplificado
-- Acompanhamento de metas financeiras
-- Suporte personalizado para novos usuários
+- **🎨 Cinematic Aesthetic**: Professional Glassmorphism and modern UI design.
+- **✨ Smooth Interaction**: Premium scrolling experience powered by `Lenis`.
+- **🚀 Ultra-fast Performance**: Next.js 14 optimization for high-ranking SEO and instant loads.
+- **📱 Fully Responsive**: Seamless UI across mobile, tablet, and desktop.
+- **⚡ Interactive Elements**: Subtle micro-animations using Framer Motion.
 
-## 🔗 Acesso ao Aplicativo
+## 🛠️ Stack Overview
 
-Você pode acessar o **Safe Finance** diretamente através da plataforma **Leand Peage** pelo seguinte link:
-
-👉 [Acessar Safe Finance na Leand Peage](https://v0-saas-landing-page-bi83mscdt.vercel.app/)
-
-## 💡 Objetivo
-
-O projeto foi criado para tornar a **educação e organização financeira acessíveis a todos**, especialmente àqueles que ainda não têm familiaridade com ferramentas tradicionais de controle financeiro.
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, sugerir melhorias ou enviar pull requests.
+- **Framework**: [Next.js 14](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/), [Shadcn UI](https://ui.shadcn.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/), [Lenis](https://lenis.darkroom.engineering/)
 
 ---
 
-Feito com 💙 por Safe Finance
+## 🚀 Experience Safe Finance
+
+Visit our official landing page:
+👉 [Safe Finance Landing Page](https://v0-saas-landing-page-bi83mscdt.vercel.app/)
+
+---
+
+## 🛠️ Local Setup
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+---
+
+<p align="center">
+  Safe Finance Landing Page - Where security meets elegance.
+</p>
