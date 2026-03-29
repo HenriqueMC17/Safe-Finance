@@ -60,7 +60,7 @@ To get the project up and running locally, follow these steps:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/HenriqueMC17/Safe-Finance.git
+git clone https://github.com/Safe-Finance/Safe-Finance.git
 cd Safe-Finance
 ```
 
