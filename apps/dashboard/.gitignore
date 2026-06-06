@@ -52,3 +52,4 @@ tsc*.txt
 .crush/
 .factory/
 .commandcode/
+.vercel
