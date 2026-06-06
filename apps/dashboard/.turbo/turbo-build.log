@@ -1,0 +1,55 @@
+$ next build
+⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+⚠ Invalid next.config.mjs options detected: 
+⚠     Unrecognized key(s) in object: 'eslint'
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+▲ Next.js 16.2.2 (Turbopack)
+- Experiments (use with caution):
+  · serverActions
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 21.8s
+  Skipping validation of types
+  Finished TypeScript config validation in 40ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/30) ...
+  Generating static pages using 7 workers (7/30) 
+  Generating static pages using 7 workers (14/30) 
+  Generating static pages using 7 workers (22/30) 
+✓ Generating static pages using 7 workers (30/30) in 962ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /analytics
+├ ○ /assistant
+├ ○ /budget-forecast
+├ ○ /chat
+├ ○ /dashboard
+├ ○ /export
+├ ○ /financial-analysis
+├ ○ /goals
+├ ○ /help
+├ ○ /invoices
+├ ○ /login
+├ ○ /meetings
+├ ○ /members
+├ ○ /notifications
+├ ○ /offline
+├ ○ /organization
+├ ○ /payments
+├ ○ /permissions
+├ ○ /projects
+├ ○ /settings
+├ ○ /sustainability
+├ ○ /sustainability/achievements
+├ ○ /sustainability/carbon-footprint
+├ ○ /sustainability/challenges
+├ ○ /sustainability/esg-investments
+├ ○ /sustainability/green-budgets
+└ ○ /transactions
+
+
+○  (Static)  prerendered as static content
+

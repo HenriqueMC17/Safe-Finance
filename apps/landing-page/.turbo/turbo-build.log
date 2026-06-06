@@ -1,0 +1,48 @@
+$ next build
+⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+⚠ Invalid next.config.mjs options detected: 
+⚠     Unrecognized key(s) in object: 'eslint'
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 11.1s
+  Skipping validation of types
+  Finished TypeScript config validation in 53ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/23) ...
+  Generating static pages using 7 workers (5/23) 
+  Generating static pages using 7 workers (11/23) 
+  Generating static pages using 7 workers (17/23) 
+✓ Generating static pages using 7 workers (23/23) in 2.8s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /agendar-demo
+├ ○ /carreiras
+├ ○ /cliente
+├ ○ /contato
+├ ○ /demo
+├ ○ /empresa/equipe
+├ ○ /empresa/politica-de-privacidade
+├ ○ /empresa/sobre
+├ ○ /empresa/termos-de-servico
+├ ○ /politica-de-cookies
+├ ○ /produto/api
+├ ○ /produto/funcionalidades
+├ ○ /produto/integracoes
+├ ○ /produto/planos
+├ ○ /recursos/blog
+├ ƒ /recursos/blog/[slug]
+├ ○ /recursos/documentacao
+├ ○ /recursos/guias
+├ ○ /recursos/suporte
+├ ○ /robots.txt
+└ ○ /sitemap.xml
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

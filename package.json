@@ -1,0 +1,20 @@
+{
+  "name": "safe-finance-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.1.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "prettier": "^3.0.0"
+  }
+}
