@@ -22,7 +22,7 @@
 
 O **Safe Finance** é um ecossistema financeiro de ponta, projetado para fornecer aos usuários uma plataforma segura, moderna e visualmente impactante para gestão de ativos, contabilidade pessoal e projeções financeiras. 
 
-A arquitetura do projeto foi estruturada como um **Monorepo** gerenciado com **PNPM Workspaces** e orquestrado por **Turborepo** para garantir builds rápidos, cache inteligente de tarefas, compartilhamento eficiente de código de UI e configurações centralizadas.
+A arquitetura do projeto foi estruturada como um **Monorepo** gerenciado com **PNPM Workspaces** e orquestrado por **Turborepo** para garantir builds rápidos, cache inteligente de tarefas, compartilhamento eficiente de código de UI e configurações centralizadas. A governança de dependências locais e caches do Turborepo segue as estratégias corporativas de otimização documentadas em [Modern Monorepo Build Tooling: A Strategic Selection Guide for Bazel and Nx](file:///c:/Dev/Docs/Distributed%20Data%20Systems%20Architecture,%20Consistency,%20and%20Warehousing%201/Modern%20Monorepo%20Build%20Tooling_%20A%20Strategic%20Selection%20Guide%20for%20Bazel%20and%20Nx.md).
 
 ---
 
@@ -53,11 +53,11 @@ Safe-Finance/
 ### 📈 [Financial Dashboard](file:///c:/Dev/Safe-Finance/apps/dashboard)
 O painel administrativo e financeiro central do usuário. Segue a metodologia **Feature-Sliced Design (FSD)** e inclui 18 módulos funcionais independentes:
 
-* **Auth & Security:** Fluxo local de registro, login e sessões protegidas por JSON Web Tokens (JWT) com encriptação BcryptJS.
+* **Auth & Security:** Fluxo local de registro, login e sessões protegidas por JSON Web Tokens (JWT) com encriptação BcryptJS. Para garantir a estabilidade do ecossistema e proteção contra abusos em endpoints de autenticação e API, adotamos as estratégias descritas no [The Architect's Guide to API Rate Limiting: Ensuring Stability and Fairness](file:///c:/Dev/Docs/Bibliotecas,%20Frameworks,%20API%20e%20Crud/The%20Architect's%20Guide%20to%20API%20Rate%20Limiting_%20Ensuring%20Stability%20and%20Fairness.md).
 * **Accessibility (a11y):** Painel interno de ajustes visuais (contraste, modo leitor de tela, ajuste de fontes e navegação por teclado).
 * **AI Assistant:** Chat interativo com assistente financeiro inteligente para recomendações e análises.
 * **Analytics & Forecasts:** Gráficos interativos em **Recharts** para monitorar categorias de despesas, tendências e projeções futuras de gastos.
-* **Transações & Contas:** Ledger detalhado para adicionar, editar, filtrar e paginar transações financeiras agregadas por contas bancárias, cartões ou dinheiro físico.
+* **Transações & Contas:** Ledger detalhado para adicionar, editar, filtrar e paginar transações financeiras agregadas por contas bancárias, cartões ou dinheiro físico. A resiliência transacional e consistência do ledger seguem os padrões de [Technical Design Specification: Reliable Distributed Transactions via Outbox and Saga Patterns](file:///c:/Dev/Docs/Programação%20Web/Technical%20Design%20Specification_%20Reliable%20Distributed%20Transactions%20via%20Outbox%20and%20Saga%20Patterns.md), prevenindo inconsistências em concorrência concorrente distribuída.
 * **Orçamento (Budget):** Definição de limites mensais por categorias e alertas visuais de teto de gastos.
 * **Sustainability (ESG):** Cálculo estimado da pegada de carbono com base nas despesas categorizadas do usuário.
 * **PWA & Offline:** Configurado como Progressive Web App com indicadores e suporte a uso em modo offline.
