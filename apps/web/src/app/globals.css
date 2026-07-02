@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 160 84% 39%;
+    --radius: 0px;
+    --chart-1: 160 84% 39%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 160 40% 50%;
+    --chart-4: 160 30% 55%;
+    --chart-5: 160 20% 60%;
+
+    /* Accessibility variables */
+    --accessibility-font-size: 16px;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 160 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 160 40% 50%;
+    --chart-4: 160 30% 55%;
+    --chart-5: 160 20% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary selection:text-black;
+    font-size: var(--accessibility-font-size);
+  }
+}
+
+/* Global Noise Texture Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Accessibility Styles */
+
+/* High Contrast Mode */
+.accessibility-high-contrast {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 0%;
+  --card-foreground: 0 0% 100%;
+  --primary: 60 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 20%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 90%;
+  --border: 0 0% 100%;
+  --input: 0 0% 10%;
+}
+
+.accessibility-high-contrast * {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Reduced Motion */
+.accessibility-reduced-motion *,
+.accessibility-reduced-motion *::before,
+.accessibility-reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Simplified Layout */
+.accessibility-simplified {
+  --radius: 0px;
+}
+
+.accessibility-simplified * {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.accessibility-simplified .gradient {
+  background: hsl(var(--background)) !important;
+}
+
+/* Color Blind Modes */
+.accessibility-protanopia {
+  filter: url("#protanopia-filter");
+}
+
+.accessibility-deuteranopia {
+  filter: url("#deuteranopia-filter");
+}
+
+.accessibility-tritanopia {
+  filter: url("#tritanopia-filter");
+}
+
+/* Enhanced Focus Indicators */
+.accessibility-focus-indicators *:focus {
+  outline: 3px solid hsl(var(--primary)) !important;
+  outline-offset: 2px !important;
+}
+
+.accessibility-focus-indicators button:focus,
+.accessibility-focus-indicators a:focus,
+.accessibility-focus-indicators input:focus,
+.accessibility-focus-indicators select:focus,
+.accessibility-focus-indicators textarea:focus {
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3) !important;
+}
+
+/* Tutorial Styles */
+.tutorial-spotlight {
+  position: relative;
+  z-index: 1001;
+}
+
+.tutorial-spotlight::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.tutorial-spotlight::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid hsl(var(--primary));
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.8);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* PWA Install Button */
+#install-button {
+  display: none;
+}
+
+/* Scrollbar Styles */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .accessibility-simplified .container {
+    padding: 1rem !important;
+  }
+
+  .accessibility-simplified .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+/* Color Blind SVG Filters */
+svg.accessibility-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
