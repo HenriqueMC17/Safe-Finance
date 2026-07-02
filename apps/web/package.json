@@ -1,5 +1,5 @@
 {
-    "name":  "@safe-finance/dashboard",
+    "name":  "@safe-finance/web",
     "version":  "0.1.0",
     "private":  true,
     "scripts":  {
@@ -9,6 +9,8 @@
                     "start":  "next start"
                 },
     "dependencies":  {
+                         "@safe-finance/core": "workspace:*",
+                         "@safe-finance/db": "workspace:*",
                          "@emotion/is-prop-valid":  "latest",
                          "@opentelemetry/api":  "latest",
                          "@radix-ui/react-accordion":  "^1.2.2",

@@ -1,4 +1,4 @@
-import { AuthService } from "@/features/auth/services/auth-service";
+import { AuthService } from "@safe-finance/core";
 
 export async function getCurrentUser() {
   const session = await AuthService.getSession();

@@ -1,7 +1,7 @@
-﻿import { cookies } from "next/headers";
+import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@safe-finance/db";
 import bcrypt from "bcryptjs";
 
 const JWT_SECRET = new TextEncoder().encode(

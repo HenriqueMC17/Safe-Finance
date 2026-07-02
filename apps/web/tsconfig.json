@@ -31,7 +31,11 @@
       "@/features/*": ["./src/features/*"],
       "@/entities/*": ["./src/entities/*"],
       "@/shared/*": ["./src/shared/*"],
-      "@/convex/*": ["./convex/*"]
+      "@/convex/*": ["../../packages/infrastructure/database/convex/*"],
+      "@safe-finance/core": ["../../packages/core"],
+      "@safe-finance/core/*": ["../../packages/core/*"],
+      "@safe-finance/db": ["../../packages/infrastructure/database"],
+      "@safe-finance/db/*": ["../../packages/infrastructure/database/*"]
     }
   },
   "include": [
