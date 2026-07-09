@@ -1,6 +1,5 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/shared/ui/theme-provider"
 import { Toaster } from "@/shared/ui/sonner"
@@ -8,8 +7,6 @@ import { SettingsProvider } from "@/shared/contexts/settings-context"
 import { LocaleProvider } from "@/shared/contexts/locale-context"
 import Layout from "@/shared/ui/layout"
 import { PWAInstallButton } from "@/features/pwa/components/install-button"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
@@ -105,7 +102,7 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
-      <body className={inter.className}>
+      <body className="font-sans antialiased">
         <ConvexClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <SettingsProvider>

@@ -21,29 +21,28 @@ export const list = query({
       filtered = filtered.filter((b) => b.start_date <= args.endDate!);
     }
 
-    // Enhance each budget with the spent amount from transactions
-    const extendedBudgets = await Promise.all(
-      filtered.map(async (budget) => {
-        const transactions = await ctx.db
-          .query("transactions")
-          .withIndex("by_user", (q) => q.eq("user_id", args.userId))
-          .filter((q) => 
-            q.and(
-              q.eq(q.field("category"), budget.category),
-              q.gte(q.field("date"), budget.start_date),
-              budget.end_date ? q.lte(q.field("date"), budget.end_date) : true
-            )
-          )
-          .collect();
+    // Fetch all transactions for the user once to compute budget spending in memory (O(1) database queries)
+    const transactions = await ctx.db
+      .query("transactions")
+      .withIndex("by_user", (q) => q.eq("user_id", args.userId))
+      .collect();
 
-        const spentAmount = transactions.reduce((sum, t) => sum + t.amount, 0);
-        
-        return {
-          ...budget,
-          spent_amount: spentAmount,
-        };
-      })
-    );
+    // Enhance each budget with the spent amount from transactions in memory
+    const extendedBudgets = filtered.map((budget) => {
+      const budgetTransactions = transactions.filter((t) => 
+        t.category === budget.category &&
+        t.date >= budget.start_date &&
+        (!budget.end_date || t.date <= budget.end_date)
+      );
+
+      // Sum the absolute amount of all matching transactions (expenses are positive spending)
+      const spentAmount = budgetTransactions.reduce((sum, t) => sum + Math.abs(t.amount), 0);
+      
+      return {
+        ...budget,
+        spent_amount: spentAmount,
+      };
+    });
 
     return extendedBudgets;
   },

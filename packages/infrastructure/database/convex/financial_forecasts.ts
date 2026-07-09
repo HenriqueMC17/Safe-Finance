@@ -27,18 +27,16 @@ export const createBatch = mutation({
     ),
   },
   handler: async (ctx, args) => {
-    const ids = [];
-    for (const f of args.forecasts) {
-      const id = await ctx.db.insert("financial_forecasts", {
+    const insertPromises = args.forecasts.map((f) =>
+      ctx.db.insert("financial_forecasts", {
         user_id: args.userId,
         forecast_type: f.forecast_type,
         amount: f.amount,
         confidence: f.confidence,
         forecast_date: f.forecast_date,
         created_at: new Date().toISOString(),
-      });
-      ids.push(id);
-    }
-    return ids;
+      })
+    );
+    return await Promise.all(insertPromises);
   },
 });
